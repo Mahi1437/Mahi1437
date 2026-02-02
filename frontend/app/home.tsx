@@ -79,7 +79,7 @@ export default function HomeScreen() {
           {/* Hero Card */}
           <TouchableOpacity 
             style={styles.heroCard}
-            onPress={() => router.push('/assessment/start')}
+            onPress={() => Linking.openURL('https://studentguide.edu9.in/')}
           >
             <LinearGradient
               colors={['#4F9DFF', '#2563EB']}
