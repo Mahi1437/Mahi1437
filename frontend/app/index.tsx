@@ -24,11 +24,11 @@ export default function WelcomeScreen() {
         <View style={styles.content}>
           {/* Logo Section */}
           <View style={styles.logoSection}>
-            <View style={styles.logoCircle}>
-              <Ionicons name="school" size={60} color="#4F9DFF" />
-            </View>
-            <Text style={styles.brandName}>Edu9</Text>
-            <Text style={styles.tagline}>Career Guidance for After 12th</Text>
+            <Image 
+              source={require('../assets/images/edu9-logo.png')} 
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
           </View>
 
           {/* Features */}
