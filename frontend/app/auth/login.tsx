@@ -4,22 +4,19 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { sendOTP } from '../../utils/api';
+import { skipAuth } from '../../utils/api';
+import { useAuthStore } from '../../store/authStore';
 
 export default function LoginScreen() {
   const router = useRouter();
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { setAuth } = useAuthStore();
 
-  const handleSendOTP = async () => {
+  const handleContinue = async () => {
     if (!name.trim()) {
       setError('Please enter your name');
-      return;
-    }
-    if (phone.length !== 10) {
-      setError('Please enter valid 10-digit mobile number');
       return;
     }
 
@@ -27,10 +24,16 @@ export default function LoginScreen() {
     setError('');
     
     try {
-      await sendOTP(phone, name);
-      router.push({ pathname: '/auth/otp', params: { phone, name } });
+      const response = await skipAuth();
+      if (response.data.success) {
+        await setAuth(response.data.user_id, name, '');
+        router.replace('/home');
+      }
     } catch (err) {
-      setError('Failed to send OTP. Please try again.');
+      // Still proceed with local user
+      const guestId = `user_${Date.now()}`;
+      await setAuth(guestId, name, '');
+      router.replace('/home');
     } finally {
       setLoading(false);
     }
@@ -53,7 +56,7 @@ export default function LoginScreen() {
             <View style={styles.titleSection}>
               <Ionicons name="person-circle" size={80} color="#4F9DFF" />
               <Text style={styles.title}>Welcome to Edu9</Text>
-              <Text style={styles.subtitle}>Enter your details to get started</Text>
+              <Text style={styles.subtitle}>Enter your name to get started</Text>
             </View>
 
             {/* Form */}
@@ -70,31 +73,18 @@ export default function LoginScreen() {
                 />
               </View>
 
-              <View style={styles.inputContainer}>
-                <Ionicons name="call" size={22} color="#4F9DFF" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Mobile Number"
-                  placeholderTextColor="#6B8CAE"
-                  value={phone}
-                  onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, '').slice(0, 10))}
-                  keyboardType="phone-pad"
-                  maxLength={10}
-                />
-              </View>
-
               {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
               <TouchableOpacity
                 style={[styles.button, loading && styles.buttonDisabled]}
-                onPress={handleSendOTP}
+                onPress={handleContinue}
                 disabled={loading}
               >
                 {loading ? (
                   <ActivityIndicator color="#FFF" />
                 ) : (
                   <>
-                    <Text style={styles.buttonText}>Send OTP</Text>
+                    <Text style={styles.buttonText}>Continue</Text>
                     <Ionicons name="arrow-forward" size={20} color="#FFF" />
                   </>
                 )}
