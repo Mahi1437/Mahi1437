@@ -1,8 +1,8 @@
 {
   "summary": {
-    "passed": 7,
-    "total": 8,
-    "success_rate": "87.5%"
+    "passed": 9,
+    "total": 9,
+    "success_rate": "100.0%"
   },
   "results": [
     {
@@ -13,18 +13,18 @@
         "status": "healthy",
         "service": "Edu9 API"
       },
-      "timestamp": "2026-02-02T11:52:59.847068"
+      "timestamp": "2026-02-02T11:54:37.174906"
     },
     {
       "test": "Auth Skip API",
       "success": true,
-      "message": "Guest user created with ID: c9e71dac-c855-4d99-95b9-804990ab2af9",
+      "message": "Guest user created with ID: 5f9bee40-649c-43ad-ad3a-32dbffbdab24",
       "response_data": {
         "success": true,
-        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "user_id": "5f9bee40-649c-43ad-ad3a-32dbffbdab24",
         "message": "Guest access granted"
       },
-      "timestamp": "2026-02-02T11:52:59.859051"
+      "timestamp": "2026-02-02T11:54:37.188265"
     },
     {
       "test": "OTP Send API",
@@ -35,7 +35,7 @@
         "message": "OTP sent successfully",
         "user_id": null
       },
-      "timestamp": "2026-02-02T11:52:59.872063"
+      "timestamp": "2026-02-02T11:54:37.201109"
     },
     {
       "test": "OTP Verify API",
@@ -46,15 +46,15 @@
         "message": "OTP verified",
         "user_id": "fca7951c-87aa-480b-8e3b-6432f3038509"
       },
-      "timestamp": "2026-02-02T11:52:59.883647"
+      "timestamp": "2026-02-02T11:54:37.214089"
     },
     {
       "test": "Assessment Create API",
       "success": true,
-      "message": "Assessment created with ID: 75cca717-7e38-4ad4-aebc-6cc110088513",
+      "message": "Assessment created with ID: 4994c012-bba4-4ba8-b065-db62abef450c",
       "response_data": {
-        "id": "75cca717-7e38-4ad4-aebc-6cc110088513",
-        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "id": "4994c012-bba4-4ba8-b065-db62abef450c",
+        "user_id": "5f9bee40-649c-43ad-ad3a-32dbffbdab24",
         "student_name": "Priya Patel",
         "stream": "Science",
         "subjects": [
@@ -78,51 +78,63 @@
           "name": "Suresh Patel",
           "phone": "9876543211"
         },
-        "created_at": "2026-02-02T11:52:59.888522"
+        "created_at": "2026-02-02T11:54:37.219997"
       },
-      "timestamp": "2026-02-02T11:52:59.943723"
+      "timestamp": "2026-02-02T11:54:37.223808"
     },
     {
       "test": "Career Recommendations API",
-      "success": false,
-      "message": "Request error: HTTPSConnectionPool(host='career-mentor-57.preview.emergentagent.com', port=443): Read timed out. (read timeout=30)",
-      "response_data": null,
-      "timestamp": "2026-02-02T11:53:29.974506"
+      "success": true,
+      "message": "Generated 3 career recommendations using AI",
+      "response_data": {
+        "career_count": 3,
+        "has_fallback": false
+      },
+      "timestamp": "2026-02-02T11:55:10.762361"
+    },
+    {
+      "test": "Career Recommendations GET API",
+      "success": true,
+      "message": "Retrieved 3 saved career recommendations",
+      "response_data": {
+        "career_count": 3
+      },
+      "timestamp": "2026-02-02T11:55:10.775380"
     },
     {
       "test": "Booking API",
       "success": true,
-      "message": "Booking created with ID: 981cecb1-2816-4c66-9610-05f07454e5b8",
+      "message": "Booking created with ID: 9a3e420c-624a-4e80-9901-486999a4a772",
       "response_data": {
-        "id": "981cecb1-2816-4c66-9610-05f07454e5b8",
-        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "id": "9a3e420c-624a-4e80-9901-486999a4a772",
+        "user_id": "5f9bee40-649c-43ad-ad3a-32dbffbdab24",
         "name": "Arjun Singh",
         "phone": "9876543212",
         "consultation_type": "Online",
         "date": "2024-01-15",
         "time": "10:00 AM",
         "status": "confirmed",
-        "created_at": "2026-02-02T11:53:36.393039"
+        "created_at": "2026-02-02T11:55:10.786332"
       },
-      "timestamp": "2026-02-02T11:53:36.422150"
+      "timestamp": "2026-02-02T11:55:10.789577"
     },
     {
       "test": "Membership API",
       "success": true,
-      "message": "Membership created with ID: a61f09ca-d6e9-455d-a5b7-32504851424a",
+      "message": "Membership created with ID: a18ff33e-0b6a-4b98-bd6d-2a3c140bb792",
       "response_data": {
-        "id": "a61f09ca-d6e9-455d-a5b7-32504851424a",
-        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "id": "a18ff33e-0b6a-4b98-bd6d-2a3c140bb792",
+        "user_id": "5f9bee40-649c-43ad-ad3a-32dbffbdab24",
         "name": "Kavya Reddy",
         "phone": "9876543213",
         "amount": 10000,
         "status": "active",
         "payment_status": "paid",
-        "created_at": "2026-02-02T11:53:36.431308"
+        "created_at": "2026-02-02T11:55:10.800012"
       },
-      "timestamp": "2026-02-02T11:53:36.446376"
+      "timestamp": "2026-02-02T11:55:10.804398"
     }
   ],
   "backend_url": "https://career-mentor-57.preview.emergentagent.com/api",
-  "test_timestamp": "2026-02-02T11:53:36.446519"
+  "test_timestamp": "2026-02-02T11:55:10.804577"
 }
