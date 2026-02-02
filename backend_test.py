@@ -199,7 +199,35 @@ class Edu9APITester:
             self.log_test("Career Recommendations API", False, f"Request error: {str(e)}")
             return False
     
-    def test_booking_create(self):
+    def test_career_recommendations_get(self):
+        """Test GET /api/career-recommendations/{user_id} to verify data was saved"""
+        if not self.user_id:
+            self.log_test("Career Recommendations GET API", False, "No user_id available")
+            return False
+            
+        try:
+            response = self.session.get(
+                f"{self.base_url}/career-recommendations/{self.user_id}",
+                timeout=10
+            )
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and data.get('careers'):
+                    careers = data['careers']
+                    career_count = len(careers)
+                    self.log_test("Career Recommendations GET API", True, 
+                                f"Retrieved {career_count} saved career recommendations", 
+                                {"career_count": career_count})
+                    return True
+                else:
+                    self.log_test("Career Recommendations GET API", False, "No saved recommendations found", data)
+                    return False
+            else:
+                self.log_test("Career Recommendations GET API", False, f"Failed with status {response.status_code}", response.text)
+                return False
+        except Exception as e:
+            self.log_test("Career Recommendations GET API", False, f"Request error: {str(e)}")
+            return False
         """Test POST /api/bookings"""
         if not self.user_id:
             self.log_test("Booking API", False, "No user_id available")
