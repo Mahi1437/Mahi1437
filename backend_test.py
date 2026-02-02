@@ -308,6 +308,7 @@ class Edu9APITester:
             ("OTP Verify API", self.test_otp_verify),
             ("Assessment Create API", self.test_assessment_create),
             ("Career Recommendations API", self.test_career_recommendations),
+            ("Career Recommendations GET API", self.test_career_recommendations_get),
             ("Booking API", self.test_booking_create),
             ("Membership API", self.test_membership_create)
         ]
