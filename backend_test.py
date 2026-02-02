@@ -228,6 +228,8 @@ class Edu9APITester:
         except Exception as e:
             self.log_test("Career Recommendations GET API", False, f"Request error: {str(e)}")
             return False
+    
+    def test_booking_create(self):
         """Test POST /api/bookings"""
         if not self.user_id:
             self.log_test("Booking API", False, "No user_id available")
