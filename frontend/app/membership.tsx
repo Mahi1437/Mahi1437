@@ -134,32 +134,14 @@ export default function MembershipScreen() {
             </View>
           </View>
 
-          {/* Demo Notice */}
-          <View style={styles.demoNotice}>
-            <Ionicons name="information-circle" size={20} color="#FFD700" />
-            <Text style={styles.demoText}>
-              Demo Mode: No actual payment will be processed
-            </Text>
-          </View>
-
           {/* Purchase Button */}
           <View style={styles.footer}>
             <TouchableOpacity 
-              style={[styles.purchaseButton, loading && styles.buttonDisabled]}
+              style={styles.purchaseButton}
               onPress={handlePurchase}
-              disabled={loading}
             >
-              {loading ? (
-                <>
-                  <ActivityIndicator color="#0A1628" />
-                  <Text style={styles.purchaseButtonText}>Processing...</Text>
-                </>
-              ) : (
-                <>
-                  <Text style={styles.purchaseButtonText}>Get Membership</Text>
-                  <Ionicons name="arrow-forward" size={20} color="#0A1628" />
-                </>
-              )}
+              <Text style={styles.purchaseButtonText}>Get Membership</Text>
+              <Ionicons name="arrow-forward" size={20} color="#0A1628" />
             </TouchableOpacity>
           </View>
 
