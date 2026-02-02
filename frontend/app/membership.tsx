@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Linking } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -22,44 +22,13 @@ export default function MembershipScreen() {
   const router = useRouter();
   const { userId, userName, userPhone } = useAuthStore();
   const [loading, setLoading] = useState(false);
-  const [checking, setChecking] = useState(true);
+  const [checking, setChecking] = useState(false);
   const [hasMembership, setHasMembership] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    checkMembership();
-  }, []);
-
-  const checkMembership = async () => {
-    try {
-      const response = await getMembership(userId || '');
-      if (response.data && response.data.id) {
-        setHasMembership(true);
-      }
-    } catch (err) {
-      // No membership
-    } finally {
-      setChecking(false);
-    }
-  };
-
-  const handlePurchase = async () => {
-    setLoading(true);
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    try {
-      await createMembership({
-        user_id: userId,
-        name: userName || 'User',
-        phone: userPhone || '',
-      });
-      setSuccess(true);
-    } catch (err) {
-      console.error('Membership error:', err);
-    } finally {
-      setLoading(false);
-    }
+  const handlePurchase = () => {
+    // Open external booking link
+    Linking.openURL('https://bookings.edu9.in/#/2026');
   };
 
   if (checking) {
