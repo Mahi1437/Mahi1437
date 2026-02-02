@@ -33,7 +33,6 @@ export default function WelcomeScreen() {
 
           {/* Features */}
           <View style={styles.features}>
-            <FeatureItem icon="analytics" text="AI-Powered Career Assessment" />
             <FeatureItem icon="school" text="Expert Counseling Support" />
             <FeatureItem icon="videocam" text="Video Guidance Library" />
             <FeatureItem icon="calendar" text="Book Consultation Slots" />
@@ -47,13 +46,6 @@ export default function WelcomeScreen() {
             >
               <Text style={styles.primaryButtonText}>Get Started</Text>
               <Ionicons name="arrow-forward" size={20} color="#FFF" />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.secondaryButton}
-              onPress={() => router.push('/auth/skip')}
-            >
-              <Text style={styles.secondaryButtonText}>Skip for Now</Text>
             </TouchableOpacity>
           </View>
 
