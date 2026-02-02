@@ -178,7 +178,7 @@ class Edu9APITester:
             response = self.session.post(
                 f"{self.base_url}/career-recommendations", 
                 params=params,
-                timeout=30  # Longer timeout for AI processing
+                timeout=60  # Extended timeout for AI processing
             )
             if response.status_code == 200:
                 data = response.json()
