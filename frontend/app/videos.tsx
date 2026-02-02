@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Linking, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Linking, ActivityIndicator, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -13,21 +13,27 @@ const videos = [
     id: 1,
     title: 'Career Options After 12th',
     description: 'Complete guide to career paths after completing 12th grade',
-    url: 'https://www.youtube.com/embed/jHxbnCoqvfQ',
+    videoId: 'jHxbnCoqvfQ',
+    url: 'https://www.youtube.com/watch?v=jHxbnCoqvfQ',
+    embedUrl: 'https://www.youtube.com/embed/jHxbnCoqvfQ',
     thumbnail: 'https://img.youtube.com/vi/jHxbnCoqvfQ/hqdefault.jpg',
   },
   {
     id: 2,
     title: 'Engineering vs Medical',
     description: 'Which career path is better for you? Compare both options',
-    url: 'https://www.youtube.com/embed/3xvPpT3hn2A',
+    videoId: '3xvPpT3hn2A',
+    url: 'https://www.youtube.com/watch?v=3xvPpT3hn2A',
+    embedUrl: 'https://www.youtube.com/embed/3xvPpT3hn2A',
     thumbnail: 'https://img.youtube.com/vi/3xvPpT3hn2A/hqdefault.jpg',
   },
   {
     id: 3,
     title: 'Study Abroad Guide',
     description: 'Everything you need to know about studying abroad',
-    url: 'https://www.youtube.com/embed/Kkdf45WmbjI',
+    videoId: 'Kkdf45WmbjI',
+    url: 'https://www.youtube.com/watch?v=Kkdf45WmbjI',
+    embedUrl: 'https://www.youtube.com/embed/Kkdf45WmbjI',
     thumbnail: 'https://img.youtube.com/vi/Kkdf45WmbjI/hqdefault.jpg',
   },
 ];
@@ -39,6 +45,11 @@ export default function VideosScreen() {
 
   const openYouTubeChannel = () => {
     Linking.openURL('https://www.youtube.com/@edu9lvgr');
+  };
+
+  const openVideo = (video: typeof videos[0]) => {
+    // Open in YouTube app or browser
+    Linking.openURL(video.url);
   };
 
   return (
@@ -55,45 +66,14 @@ export default function VideosScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Video Player */}
-        {selectedVideo && (
-          <View style={styles.playerContainer}>
-            <View style={styles.playerHeader}>
-              <Text style={styles.nowPlaying}>Now Playing</Text>
-              <TouchableOpacity onPress={() => setSelectedVideo(null)}>
-                <Ionicons name="close-circle" size={28} color="#FF6B6B" />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.webviewContainer}>
-              {loading && (
-                <View style={styles.loadingOverlay}>
-                  <ActivityIndicator size="large" color="#4F9DFF" />
-                </View>
-              )}
-              <WebView
-                source={{ uri: `${selectedVideo.url}?autoplay=1` }}
-                style={styles.webview}
-                onLoadStart={() => setLoading(true)}
-                onLoadEnd={() => setLoading(false)}
-                allowsFullscreenVideo
-                mediaPlaybackRequiresUserAction={false}
-              />
-            </View>
-            <Text style={styles.videoTitle}>{selectedVideo.title}</Text>
-            <Text style={styles.videoDescription}>{selectedVideo.description}</Text>
-          </View>
-        )}
-
         <ScrollView showsVerticalScrollIndicator={false}>
-          {!selectedVideo && (
-            <View style={styles.introSection}>
-              <Ionicons name="play-circle" size={60} color="#FF6B6B" />
-              <Text style={styles.introTitle}>Learn from Experts</Text>
-              <Text style={styles.introSubtitle}>
-                Watch video guides to make informed career decisions
-              </Text>
-            </View>
-          )}
+          <View style={styles.introSection}>
+            <Ionicons name="play-circle" size={60} color="#FF6B6B" />
+            <Text style={styles.introTitle}>Learn from Experts</Text>
+            <Text style={styles.introSubtitle}>
+              Watch video guides to make informed career decisions
+            </Text>
+          </View>
 
           {/* Video List */}
           <View style={styles.videosList}>
@@ -101,26 +81,28 @@ export default function VideosScreen() {
             {videos.map((video) => (
               <TouchableOpacity
                 key={video.id}
-                style={[
-                  styles.videoCard,
-                  selectedVideo?.id === video.id && styles.videoCardActive,
-                ]}
-                onPress={() => setSelectedVideo(video)}
+                style={styles.videoCard}
+                onPress={() => openVideo(video)}
               >
                 <View style={styles.thumbnailContainer}>
-                  <View style={styles.thumbnailPlaceholder}>
-                    <Ionicons name="play" size={30} color="#FFF" />
-                  </View>
-                  {selectedVideo?.id === video.id && (
-                    <View style={styles.playingBadge}>
-                      <Ionicons name="volume-high" size={12} color="#FFF" />
-                      <Text style={styles.playingText}>Playing</Text>
+                  <Image 
+                    source={{ uri: video.thumbnail }}
+                    style={styles.thumbnailImage}
+                    resizeMode="cover"
+                  />
+                  <View style={styles.playOverlay}>
+                    <View style={styles.playButton}>
+                      <Ionicons name="play" size={24} color="#FFF" />
                     </View>
-                  )}
+                  </View>
                 </View>
                 <View style={styles.videoInfo}>
                   <Text style={styles.videoCardTitle}>{video.title}</Text>
                   <Text style={styles.videoCardDesc}>{video.description}</Text>
+                  <View style={styles.watchNowRow}>
+                    <Ionicons name="logo-youtube" size={16} color="#FF0000" />
+                    <Text style={styles.watchNowText}>Watch on YouTube</Text>
+                  </View>
                 </View>
               </TouchableOpacity>
             ))}
@@ -170,48 +152,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFFFF',
   },
-  playerContainer: {
-    paddingHorizontal: 20,
-    marginBottom: 16,
-  },
-  playerHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  nowPlaying: {
-    fontSize: 14,
-    color: '#4ADE80',
-    fontWeight: '600',
-  },
-  webviewContainer: {
-    height: 200,
-    borderRadius: 16,
-    overflow: 'hidden',
-    backgroundColor: '#000',
-  },
-  loadingOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 1,
-  },
-  webview: {
-    flex: 1,
-  },
-  videoTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    marginTop: 12,
-  },
-  videoDescription: {
-    fontSize: 14,
-    color: '#8BBAFF',
-    marginTop: 4,
-  },
   introSection: {
     alignItems: 'center',
     paddingHorizontal: 24,
@@ -239,62 +179,61 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   videoCard: {
-    flexDirection: 'row',
     backgroundColor: 'rgba(79, 157, 255, 0.08)',
     borderRadius: 16,
-    padding: 12,
-    marginBottom: 12,
+    marginBottom: 16,
+    overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'transparent',
-  },
-  videoCardActive: {
-    borderColor: '#4F9DFF',
-    backgroundColor: 'rgba(79, 157, 255, 0.15)',
+    borderColor: 'rgba(79, 157, 255, 0.2)',
   },
   thumbnailContainer: {
-    width: 100,
-    height: 70,
-    borderRadius: 10,
-    overflow: 'hidden',
-    marginRight: 12,
+    width: '100%',
+    height: 180,
+    position: 'relative',
   },
-  thumbnailPlaceholder: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 107, 107, 0.3)',
+  thumbnailImage: {
+    width: '100%',
+    height: '100%',
+  },
+  playOverlay: {
+    ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
-  playingBadge: {
-    position: 'absolute',
-    bottom: 4,
-    left: 4,
-    flexDirection: 'row',
+  playButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'rgba(255, 0, 0, 0.9)',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4ADE80',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 8,
-    gap: 4,
-  },
-  playingText: {
-    fontSize: 10,
-    color: '#FFF',
-    fontWeight: '600',
+    paddingLeft: 4,
   },
   videoInfo: {
-    flex: 1,
-    justifyContent: 'center',
+    padding: 16,
   },
   videoCardTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '600',
     color: '#FFFFFF',
-    marginBottom: 4,
+    marginBottom: 6,
   },
   videoCardDesc: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#8BBAFF',
     lineHeight: 18,
+    marginBottom: 10,
+  },
+  watchNowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  watchNowText: {
+    fontSize: 13,
+    color: '#FF6B6B',
+    fontWeight: '500',
   },
   moreVideosButton: {
     flexDirection: 'row',
