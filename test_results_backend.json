@@ -1,0 +1,128 @@
+{
+  "summary": {
+    "passed": 7,
+    "total": 8,
+    "success_rate": "87.5%"
+  },
+  "results": [
+    {
+      "test": "Health Check",
+      "success": true,
+      "message": "API is healthy: healthy",
+      "response_data": {
+        "status": "healthy",
+        "service": "Edu9 API"
+      },
+      "timestamp": "2026-02-02T11:52:59.847068"
+    },
+    {
+      "test": "Auth Skip API",
+      "success": true,
+      "message": "Guest user created with ID: c9e71dac-c855-4d99-95b9-804990ab2af9",
+      "response_data": {
+        "success": true,
+        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "message": "Guest access granted"
+      },
+      "timestamp": "2026-02-02T11:52:59.859051"
+    },
+    {
+      "test": "OTP Send API",
+      "success": true,
+      "message": "OTP sent successfully",
+      "response_data": {
+        "success": true,
+        "message": "OTP sent successfully",
+        "user_id": null
+      },
+      "timestamp": "2026-02-02T11:52:59.872063"
+    },
+    {
+      "test": "OTP Verify API",
+      "success": true,
+      "message": "OTP verified, user_id: fca7951c-87aa-480b-8e3b-6432f3038509",
+      "response_data": {
+        "success": true,
+        "message": "OTP verified",
+        "user_id": "fca7951c-87aa-480b-8e3b-6432f3038509"
+      },
+      "timestamp": "2026-02-02T11:52:59.883647"
+    },
+    {
+      "test": "Assessment Create API",
+      "success": true,
+      "message": "Assessment created with ID: 75cca717-7e38-4ad4-aebc-6cc110088513",
+      "response_data": {
+        "id": "75cca717-7e38-4ad4-aebc-6cc110088513",
+        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "student_name": "Priya Patel",
+        "stream": "Science",
+        "subjects": [
+          "Physics",
+          "Chemistry",
+          "Mathematics",
+          "Biology"
+        ],
+        "marks_percentage": 85.5,
+        "career_interests": [
+          "Technology",
+          "Healthcare",
+          "Research"
+        ],
+        "strong_subjects": [
+          "Mathematics",
+          "Physics"
+        ],
+        "career_goal": "Higher Studies",
+        "parent_details": {
+          "name": "Suresh Patel",
+          "phone": "9876543211"
+        },
+        "created_at": "2026-02-02T11:52:59.888522"
+      },
+      "timestamp": "2026-02-02T11:52:59.943723"
+    },
+    {
+      "test": "Career Recommendations API",
+      "success": false,
+      "message": "Request error: HTTPSConnectionPool(host='career-mentor-57.preview.emergentagent.com', port=443): Read timed out. (read timeout=30)",
+      "response_data": null,
+      "timestamp": "2026-02-02T11:53:29.974506"
+    },
+    {
+      "test": "Booking API",
+      "success": true,
+      "message": "Booking created with ID: 981cecb1-2816-4c66-9610-05f07454e5b8",
+      "response_data": {
+        "id": "981cecb1-2816-4c66-9610-05f07454e5b8",
+        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "name": "Arjun Singh",
+        "phone": "9876543212",
+        "consultation_type": "Online",
+        "date": "2024-01-15",
+        "time": "10:00 AM",
+        "status": "confirmed",
+        "created_at": "2026-02-02T11:53:36.393039"
+      },
+      "timestamp": "2026-02-02T11:53:36.422150"
+    },
+    {
+      "test": "Membership API",
+      "success": true,
+      "message": "Membership created with ID: a61f09ca-d6e9-455d-a5b7-32504851424a",
+      "response_data": {
+        "id": "a61f09ca-d6e9-455d-a5b7-32504851424a",
+        "user_id": "c9e71dac-c855-4d99-95b9-804990ab2af9",
+        "name": "Kavya Reddy",
+        "phone": "9876543213",
+        "amount": 10000,
+        "status": "active",
+        "payment_status": "paid",
+        "created_at": "2026-02-02T11:53:36.431308"
+      },
+      "timestamp": "2026-02-02T11:53:36.446376"
+    }
+  ],
+  "backend_url": "https://career-mentor-57.preview.emergentagent.com/api",
+  "test_timestamp": "2026-02-02T11:53:36.446519"
+}
