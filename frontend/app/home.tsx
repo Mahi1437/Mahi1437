@@ -57,9 +57,16 @@ export default function HomeScreen() {
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* Header */}
           <View style={styles.header}>
-            <View>
-              <Text style={styles.greeting}>Welcome back,</Text>
-              <Text style={styles.userName}>{userName || 'Student'}</Text>
+            <View style={styles.headerLeft}>
+              <Image 
+                source={require('../assets/images/edu9-icon.png')} 
+                style={styles.headerLogo}
+                resizeMode="contain"
+              />
+              <View>
+                <Text style={styles.greeting}>Welcome back,</Text>
+                <Text style={styles.userName}>{userName || 'Student'}</Text>
+              </View>
             </View>
             <TouchableOpacity 
               style={styles.supportButton}
