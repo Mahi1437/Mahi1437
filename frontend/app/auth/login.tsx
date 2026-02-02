@@ -72,9 +72,8 @@ export default function LoginScreen() {
 
               <View style={styles.inputContainer}>
                 <Ionicons name="call" size={22} color="#4F9DFF" style={styles.inputIcon} />
-                <Text style={styles.countryCode}>+91</Text>
                 <TextInput
-                  style={[styles.input, { paddingLeft: 50 }]}
+                  style={styles.input}
                   placeholder="Mobile Number"
                   placeholderTextColor="#6B8CAE"
                   value={phone}
@@ -101,14 +100,6 @@ export default function LoginScreen() {
                 )}
               </TouchableOpacity>
             </View>
-
-            {/* Skip Option */}
-            <TouchableOpacity 
-              style={styles.skipButton}
-              onPress={() => router.push('/auth/skip')}
-            >
-              <Text style={styles.skipText}>Skip Verification</Text>
-            </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
