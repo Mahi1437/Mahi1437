@@ -23,7 +23,7 @@ export default function HomeScreen() {
       subtitle: 'Find your perfect career',
       icon: 'analytics',
       color: '#4F9DFF',
-      route: '/assessment/start',
+      route: '/career-options',
     },
     {
       id: 'videos',
