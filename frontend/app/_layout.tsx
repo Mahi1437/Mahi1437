@@ -6,11 +6,11 @@ import React from 'react';
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: '#0A1628' },
+          contentStyle: { backgroundColor: '#FFFFFF' },
           animation: 'slide_from_right',
         }}
       />
