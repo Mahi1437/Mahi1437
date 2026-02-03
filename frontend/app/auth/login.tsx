@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -30,7 +29,6 @@ export default function LoginScreen() {
         router.replace('/home');
       }
     } catch (err) {
-      // Still proceed with local user
       const guestId = `user_${Date.now()}`;
       await setAuth(guestId, name, '');
       router.replace('/home');
@@ -40,75 +38,86 @@ export default function LoginScreen() {
   };
 
   return (
-    <LinearGradient colors={['#0A1628', '#1E3A5F', '#0A1628']} style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <KeyboardAvoidingView 
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.keyboardView}
-        >
-          {/* Header */}
-          <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={24} color="#FFF" />
-          </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardView}
+      >
+        {/* Header */}
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={24} color="#374151" />
+        </TouchableOpacity>
 
-          <View style={styles.content}>
-            {/* Title */}
-            <View style={styles.titleSection}>
-              <Ionicons name="person-circle" size={80} color="#4F9DFF" />
-              <Text style={styles.title}>Welcome to Edu9</Text>
-              <Text style={styles.subtitle}>Enter your name to get started</Text>
+        <View style={styles.content}>
+          {/* Title */}
+          <View style={styles.titleSection}>
+            <View style={styles.iconCircle}>
+              <Ionicons name="person" size={40} color="#0D9488" />
             </View>
-
-            {/* Form */}
-            <View style={styles.form}>
-              <View style={styles.inputContainer}>
-                <Ionicons name="person" size={22} color="#4F9DFF" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Full Name"
-                  placeholderTextColor="#6B8CAE"
-                  value={name}
-                  onChangeText={setName}
-                  autoCapitalize="words"
-                />
-              </View>
-
-              {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
-              <TouchableOpacity
-                style={[styles.button, loading && styles.buttonDisabled]}
-                onPress={handleContinue}
-                disabled={loading}
-              >
-                {loading ? (
-                  <ActivityIndicator color="#FFF" />
-                ) : (
-                  <>
-                    <Text style={styles.buttonText}>Continue</Text>
-                    <Ionicons name="arrow-forward" size={20} color="#FFF" />
-                  </>
-                )}
-              </TouchableOpacity>
-            </View>
+            <Text style={styles.title}>Welcome to Edu9</Text>
+            <Text style={styles.subtitle}>Enter your name to get started</Text>
           </View>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </LinearGradient>
+
+          {/* Form */}
+          <View style={styles.form}>
+            <Text style={styles.inputLabel}>Full Name</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="person-outline" size={20} color="#9CA3AF" />
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your full name"
+                placeholderTextColor="#9CA3AF"
+                value={name}
+                onChangeText={(text) => {
+                  setName(text);
+                  setError('');
+                }}
+                autoCapitalize="words"
+              />
+            </View>
+
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+            <TouchableOpacity
+              style={[styles.button, loading && styles.buttonDisabled]}
+              onPress={handleContinue}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#FFF" />
+              ) : (
+                <>
+                  <Text style={styles.buttonText}>Continue</Text>
+                  <Ionicons name="arrow-forward" size={20} color="#FFF" />
+                </>
+              )}
+            </TouchableOpacity>
+          </View>
+
+          {/* Terms */}
+          <Text style={styles.termsText}>
+            By continuing, you agree to our{' '}
+            <Text style={styles.termsLink}>Terms of Service</Text>
+            {' '}and{' '}
+            <Text style={styles.termsLink}>Privacy Policy</Text>
+          </Text>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  safeArea: {
-    flex: 1,
+    backgroundColor: '#FFFFFF',
   },
   keyboardView: {
     flex: 1,
   },
   backButton: {
     padding: 16,
+    alignSelf: 'flex-start',
   },
   content: {
     flex: 1,
@@ -119,77 +128,87 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 40,
   },
+  iconCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#F0FDFA',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginTop: 16,
+    color: '#111827',
   },
   subtitle: {
-    fontSize: 16,
-    color: '#8BBAFF',
+    fontSize: 15,
+    color: '#6B7280',
     marginTop: 8,
   },
   form: {
-    gap: 16,
+    gap: 8,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#374151',
+    marginBottom: 6,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(79, 157, 255, 0.1)',
-    borderRadius: 16,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: 'rgba(79, 157, 255, 0.3)',
-  },
-  inputIcon: {
-    position: 'absolute',
-    left: 16,
-    zIndex: 1,
-  },
-  countryCode: {
-    position: 'absolute',
-    left: 50,
-    color: '#FFFFFF',
-    fontSize: 16,
-    zIndex: 1,
+    borderColor: '#E5E7EB',
+    paddingHorizontal: 16,
+    gap: 12,
   },
   input: {
     flex: 1,
-    paddingVertical: 18,
-    paddingHorizontal: 50,
+    paddingVertical: 16,
     fontSize: 16,
-    color: '#FFFFFF',
+    color: '#111827',
   },
   errorText: {
-    color: '#FF6B6B',
-    fontSize: 14,
-    textAlign: 'center',
+    color: '#DC2626',
+    fontSize: 13,
+    marginTop: 6,
   },
   button: {
-    backgroundColor: '#4F9DFF',
-    paddingVertical: 18,
-    borderRadius: 16,
+    backgroundColor: '#0D9488',
+    paddingVertical: 16,
+    borderRadius: 12,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    marginTop: 8,
+    marginTop: 20,
+    shadowColor: '#0D9488',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
   },
   buttonDisabled: {
     opacity: 0.7,
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
   },
-  skipButton: {
+  termsText: {
+    fontSize: 13,
+    color: '#6B7280',
+    textAlign: 'center',
     marginTop: 24,
-    alignItems: 'center',
+    lineHeight: 20,
   },
-  skipText: {
-    color: '#8BBAFF',
-    fontSize: 16,
-    textDecorationLine: 'underline',
+  termsLink: {
+    color: '#0D9488',
+    fontWeight: '500',
   },
 });
