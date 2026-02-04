@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -80,232 +79,237 @@ export default function BookingScreen() {
 
   if (success) {
     return (
-      <LinearGradient colors={['#0A1628', '#1E3A5F', '#0A1628']} style={styles.container}>
-        <SafeAreaView style={styles.safeArea}>
-          <View style={styles.successContainer}>
-            <View style={styles.successIcon}>
-              <Ionicons name="checkmark-circle" size={80} color="#4ADE80" />
-            </View>
-            <Text style={styles.successTitle}>Booking Confirmed!</Text>
-            <Text style={styles.successSubtitle}>
-              Your {consultationType.toLowerCase()} consultation has been scheduled
-            </Text>
-            
-            <View style={styles.bookingDetails}>
-              <View style={styles.detailRow}>
-                <Ionicons name="calendar" size={20} color="#4F9DFF" />
-                <Text style={styles.detailText}>{selectedDate}</Text>
-              </View>
-              <View style={styles.detailRow}>
-                <Ionicons name="time" size={20} color="#4F9DFF" />
-                <Text style={styles.detailText}>{selectedTime}</Text>
-              </View>
-              <View style={styles.detailRow}>
-                <Ionicons name="videocam" size={20} color="#4F9DFF" />
-                <Text style={styles.detailText}>{consultationType} Consultation</Text>
-              </View>
-            </View>
-
-            <Text style={styles.callbackNote}>
-              Our counselor will call you at the scheduled time
-            </Text>
-
-            <TouchableOpacity 
-              style={styles.homeButton}
-              onPress={() => router.push('/home')}
-            >
-              <Text style={styles.homeButtonText}>Go to Home</Text>
-            </TouchableOpacity>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.successContainer}>
+          <View style={styles.successIcon}>
+            <Ionicons name="checkmark-circle" size={80} color="#10B981" />
           </View>
-        </SafeAreaView>
-      </LinearGradient>
+          <Text style={styles.successTitle}>Booking Confirmed!</Text>
+          <Text style={styles.successSubtitle}>
+            Your {consultationType.toLowerCase()} consultation has been scheduled
+          </Text>
+          
+          <View style={styles.bookingDetails}>
+            <View style={styles.detailRow}>
+              <View style={styles.detailIconContainer}>
+                <Ionicons name="calendar" size={20} color="#0FB9B1" />
+              </View>
+              <Text style={styles.detailText}>{selectedDate}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <View style={styles.detailIconContainer}>
+                <Ionicons name="time" size={20} color="#0FB9B1" />
+              </View>
+              <Text style={styles.detailText}>{selectedTime}</Text>
+            </View>
+            <View style={styles.detailRow}>
+              <View style={styles.detailIconContainer}>
+                <Ionicons name="videocam" size={20} color="#0FB9B1" />
+              </View>
+              <Text style={styles.detailText}>{consultationType} Consultation</Text>
+            </View>
+          </View>
+
+          <Text style={styles.callbackNote}>
+            Our counselor will call you at the scheduled time
+          </Text>
+
+          <TouchableOpacity 
+            style={styles.homeButton}
+            onPress={() => router.push('/home')}
+          >
+            <Text style={styles.homeButtonText}>Go to Home</Text>
+            <Ionicons name="arrow-forward" size={18} color="#FFF" />
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <LinearGradient colors={['#0A1628', '#1E3A5F', '#0A1628']} style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <KeyboardAvoidingView 
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.keyboardView}
-        >
-          {/* Header */}
-          <View style={styles.header}>
-            <TouchableOpacity onPress={() => router.back()}>
-              <Ionicons name="arrow-back" size={24} color="#FFF" />
-            </TouchableOpacity>
-            <Text style={styles.headerTitle}>Book Consultation</Text>
-            <TouchableOpacity onPress={() => router.push('/home')}>
-              <Ionicons name="home" size={24} color="#FFF" />
-            </TouchableOpacity>
-          </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardView}
+      >
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={24} color="#0B1C2D" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Book Consultation</Text>
+          <TouchableOpacity onPress={() => router.push('/home')} style={styles.homeIconButton}>
+            <Ionicons name="home" size={22} color="#0FB9B1" />
+          </TouchableOpacity>
+        </View>
 
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {/* Consultation Type */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Consultation Type</Text>
-              <View style={styles.typeContainer}>
-                <TouchableOpacity
-                  style={[
-                    styles.typeCard,
-                    consultationType === 'Online' && styles.typeCardSelected,
-                  ]}
-                  onPress={() => setConsultationType('Online')}
-                >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {/* Consultation Type */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Consultation Type</Text>
+            <View style={styles.typeContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.typeCard,
+                  consultationType === 'Online' && styles.typeCardSelected,
+                ]}
+                onPress={() => setConsultationType('Online')}
+              >
+                <View style={[styles.typeIconContainer, consultationType === 'Online' && styles.typeIconContainerSelected]}>
                   <Ionicons 
                     name="videocam" 
-                    size={32} 
-                    color={consultationType === 'Online' ? '#FFF' : '#4F9DFF'} 
+                    size={28} 
+                    color={consultationType === 'Online' ? '#FFFFFF' : '#6366F1'} 
                   />
-                  <Text style={[
-                    styles.typeText,
-                    consultationType === 'Online' && styles.typeTextSelected,
-                  ]}>Online</Text>
-                  <Text style={[
-                    styles.typeDesc,
-                    consultationType === 'Online' && styles.typeDescSelected,
-                  ]}>Video Call</Text>
-                </TouchableOpacity>
+                </View>
+                <Text style={[
+                  styles.typeText,
+                  consultationType === 'Online' && styles.typeTextSelected,
+                ]}>Online</Text>
+                <Text style={[
+                  styles.typeDesc,
+                  consultationType === 'Online' && styles.typeDescSelected,
+                ]}>Video Call</Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={[
-                    styles.typeCard,
-                    consultationType === 'Offline' && styles.typeCardSelected,
-                  ]}
-                  onPress={() => setConsultationType('Offline')}
-                >
+              <TouchableOpacity
+                style={[
+                  styles.typeCard,
+                  consultationType === 'Offline' && styles.typeCardSelected,
+                ]}
+                onPress={() => setConsultationType('Offline')}
+              >
+                <View style={[styles.typeIconContainer, { backgroundColor: '#FCE7F3' }, consultationType === 'Offline' && styles.typeIconContainerSelected]}>
                   <Ionicons 
                     name="location" 
-                    size={32} 
-                    color={consultationType === 'Offline' ? '#FFF' : '#4F9DFF'} 
+                    size={28} 
+                    color={consultationType === 'Offline' ? '#FFFFFF' : '#EC4899'} 
                   />
-                  <Text style={[
-                    styles.typeText,
-                    consultationType === 'Offline' && styles.typeTextSelected,
-                  ]}>Offline</Text>
-                  <Text style={[
-                    styles.typeDesc,
-                    consultationType === 'Offline' && styles.typeDescSelected,
-                  ]}>Visit Office</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            {/* Date Selection */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Select Date</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <View style={styles.datesContainer}>
-                  {getNextDays().map((item) => (
-                    <TouchableOpacity
-                      key={item.date}
-                      style={[
-                        styles.dateCard,
-                        selectedDate === item.date && styles.dateCardSelected,
-                      ]}
-                      onPress={() => setSelectedDate(item.date)}
-                    >
-                      <Text style={[
-                        styles.dateDay,
-                        selectedDate === item.date && styles.dateDaySelected,
-                      ]}>{item.day}</Text>
-                      <Text style={[
-                        styles.dateNum,
-                        selectedDate === item.date && styles.dateNumSelected,
-                      ]}>{item.dayNum}</Text>
-                      <Text style={[
-                        styles.dateMonth,
-                        selectedDate === item.date && styles.dateMonthSelected,
-                      ]}>{item.month}</Text>
-                    </TouchableOpacity>
-                  ))}
                 </View>
-              </ScrollView>
+                <Text style={[
+                  styles.typeText,
+                  consultationType === 'Offline' && styles.typeTextSelected,
+                ]}>Offline</Text>
+                <Text style={[
+                  styles.typeDesc,
+                  consultationType === 'Offline' && styles.typeDescSelected,
+                ]}>Visit Office</Text>
+              </TouchableOpacity>
             </View>
+          </View>
 
-            {/* Time Selection */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Select Time</Text>
-              <View style={styles.timesContainer}>
-                {timeSlots.map((time) => (
+          {/* Date Selection */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Select Date</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={styles.datesContainer}>
+                {getNextDays().map((item) => (
                   <TouchableOpacity
-                    key={time}
+                    key={item.date}
                     style={[
-                      styles.timeChip,
-                      selectedTime === time && styles.timeChipSelected,
+                      styles.dateCard,
+                      selectedDate === item.date && styles.dateCardSelected,
                     ]}
-                    onPress={() => setSelectedTime(time)}
+                    onPress={() => setSelectedDate(item.date)}
                   >
                     <Text style={[
-                      styles.timeText,
-                      selectedTime === time && styles.timeTextSelected,
-                    ]}>{time}</Text>
+                      styles.dateDay,
+                      selectedDate === item.date && styles.dateDaySelected,
+                    ]}>{item.day}</Text>
+                    <Text style={[
+                      styles.dateNum,
+                      selectedDate === item.date && styles.dateNumSelected,
+                    ]}>{item.dayNum}</Text>
+                    <Text style={[
+                      styles.dateMonth,
+                      selectedDate === item.date && styles.dateMonthSelected,
+                    ]}>{item.month}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
-            </View>
+            </ScrollView>
+          </View>
 
-            {/* Contact Details */}
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Your Details</Text>
-              <View style={styles.inputContainer}>
-                <Ionicons name="person" size={22} color="#4F9DFF" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Full Name"
-                  placeholderTextColor="#6B8CAE"
-                  value={name}
-                  onChangeText={setName}
-                  autoCapitalize="words"
-                />
-              </View>
-              <View style={styles.inputContainer}>
-                <Ionicons name="call" size={22} color="#4F9DFF" style={styles.inputIcon} />
-                <Text style={styles.countryCode}>+91</Text>
-                <TextInput
-                  style={[styles.input, { paddingLeft: 80 }]}
-                  placeholder="Mobile Number"
-                  placeholderTextColor="#6B8CAE"
-                  value={phone}
-                  onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, '').slice(0, 10))}
-                  keyboardType="phone-pad"
-                  maxLength={10}
-                />
-              </View>
+          {/* Time Selection */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Select Time</Text>
+            <View style={styles.timesContainer}>
+              {timeSlots.map((time) => (
+                <TouchableOpacity
+                  key={time}
+                  style={[
+                    styles.timeChip,
+                    selectedTime === time && styles.timeChipSelected,
+                  ]}
+                  onPress={() => setSelectedTime(time)}
+                >
+                  <Text style={[
+                    styles.timeText,
+                    selectedTime === time && styles.timeTextSelected,
+                  ]}>{time}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
+          </View>
 
-            {error ? <Text style={styles.errorText}>{error}</Text> : null}
-
-            {/* Book Button */}
-            <View style={styles.footer}>
-              <TouchableOpacity 
-                style={[styles.bookButton, loading && styles.buttonDisabled]}
-                onPress={handleBook}
-                disabled={loading}
-              >
-                {loading ? (
-                  <ActivityIndicator color="#FFF" />
-                ) : (
-                  <>
-                    <Text style={styles.bookButtonText}>Confirm Booking</Text>
-                    <Ionicons name="checkmark-circle" size={20} color="#FFF" />
-                  </>
-                )}
-              </TouchableOpacity>
+          {/* Contact Details */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Your Details</Text>
+            <View style={styles.inputContainer}>
+              <Ionicons name="person" size={20} color="#0FB9B1" style={styles.inputIcon} />
+              <TextInput
+                style={styles.input}
+                placeholder="Full Name"
+                placeholderTextColor="#94A3B8"
+                value={name}
+                onChangeText={setName}
+                autoCapitalize="words"
+              />
             </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-    </LinearGradient>
+            <View style={styles.inputContainer}>
+              <Ionicons name="call" size={20} color="#0FB9B1" style={styles.inputIcon} />
+              <Text style={styles.countryCode}>+91</Text>
+              <TextInput
+                style={[styles.input, { paddingLeft: 80 }]}
+                placeholder="Mobile Number"
+                placeholderTextColor="#94A3B8"
+                value={phone}
+                onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, '').slice(0, 10))}
+                keyboardType="phone-pad"
+                maxLength={10}
+              />
+            </View>
+          </View>
+
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+          {/* Book Button */}
+          <View style={styles.footer}>
+            <TouchableOpacity 
+              style={[styles.bookButton, loading && styles.buttonDisabled]}
+              onPress={handleBook}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#FFF" />
+              ) : (
+                <>
+                  <Text style={styles.bookButtonText}>Confirm Booking</Text>
+                  <Ionicons name="checkmark-circle" size={20} color="#FFF" />
+                </>
+              )}
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  safeArea: {
-    flex: 1,
+    backgroundColor: '#FFFFFF',
   },
   keyboardView: {
     flex: 1,
@@ -317,10 +321,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 16,
   },
+  backButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: '#F1F5F9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: '#0B1C2D',
+  },
+  homeIconButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: '#E0F7F6',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   section: {
     paddingHorizontal: 20,
@@ -329,7 +349,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: '#0B1C2D',
     marginBottom: 12,
   },
   typeContainer: {
@@ -340,31 +360,44 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'rgba(79, 157, 255, 0.08)',
+    backgroundColor: '#F8FAFC',
     borderRadius: 16,
-    borderWidth: 2,
-    borderColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
   },
   typeCardSelected: {
-    backgroundColor: '#4F9DFF',
-    borderColor: '#4F9DFF',
+    backgroundColor: '#F0FDFC',
+    borderColor: '#0FB9B1',
+    borderWidth: 2,
+  },
+  typeIconContainer: {
+    width: 56,
+    height: 56,
+    borderRadius: 16,
+    backgroundColor: '#EEF2FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  typeIconContainerSelected: {
+    backgroundColor: '#0FB9B1',
   },
   typeText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#FFFFFF',
-    marginTop: 8,
+    color: '#0B1C2D',
+    marginTop: 4,
   },
   typeTextSelected: {
-    color: '#FFFFFF',
+    color: '#0FB9B1',
   },
   typeDesc: {
     fontSize: 12,
-    color: '#8BBAFF',
+    color: '#64748B',
     marginTop: 2,
   },
   typeDescSelected: {
-    color: 'rgba(255, 255, 255, 0.8)',
+    color: '#64748B',
   },
   datesContainer: {
     flexDirection: 'row',
@@ -372,28 +405,29 @@ const styles = StyleSheet.create({
   },
   dateCard: {
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    backgroundColor: 'rgba(79, 157, 255, 0.08)',
-    borderRadius: 12,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(79, 157, 255, 0.3)',
+    borderColor: '#E2E8F0',
   },
   dateCardSelected: {
-    backgroundColor: '#4F9DFF',
-    borderColor: '#4F9DFF',
+    backgroundColor: '#0FB9B1',
+    borderColor: '#0FB9B1',
   },
   dateDay: {
     fontSize: 12,
-    color: '#8BBAFF',
+    color: '#64748B',
+    fontWeight: '500',
   },
   dateDaySelected: {
     color: 'rgba(255, 255, 255, 0.8)',
   },
   dateNum: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#0B1C2D',
     marginVertical: 4,
   },
   dateNumSelected: {
@@ -401,7 +435,8 @@ const styles = StyleSheet.create({
   },
   dateMonth: {
     fontSize: 12,
-    color: '#8BBAFF',
+    color: '#64748B',
+    fontWeight: '500',
   },
   dateMonthSelected: {
     color: 'rgba(255, 255, 255, 0.8)',
@@ -412,31 +447,33 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   timeChip: {
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 18,
-    backgroundColor: 'rgba(79, 157, 255, 0.08)',
+    backgroundColor: '#F8FAFC',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: 'rgba(79, 157, 255, 0.3)',
+    borderColor: '#E2E8F0',
   },
   timeChipSelected: {
-    backgroundColor: '#4F9DFF',
-    borderColor: '#4F9DFF',
+    backgroundColor: '#0FB9B1',
+    borderColor: '#0FB9B1',
   },
   timeText: {
     fontSize: 14,
-    color: '#FFFFFF',
+    color: '#0B1C2D',
+    fontWeight: '500',
   },
   timeTextSelected: {
+    color: '#FFFFFF',
     fontWeight: '600',
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(79, 157, 255, 0.1)',
-    borderRadius: 16,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(79, 157, 255, 0.3)',
+    borderColor: '#E2E8F0',
     marginBottom: 12,
   },
   inputIcon: {
@@ -446,20 +483,21 @@ const styles = StyleSheet.create({
   },
   countryCode: {
     position: 'absolute',
-    left: 50,
-    color: '#FFFFFF',
+    left: 48,
+    color: '#0B1C2D',
     fontSize: 16,
     zIndex: 1,
+    fontWeight: '500',
   },
   input: {
     flex: 1,
     paddingVertical: 16,
-    paddingHorizontal: 50,
+    paddingHorizontal: 48,
     fontSize: 16,
-    color: '#FFFFFF',
+    color: '#0B1C2D',
   },
   errorText: {
-    color: '#FF6B6B',
+    color: '#EF4444',
     fontSize: 14,
     textAlign: 'center',
     marginBottom: 16,
@@ -469,20 +507,25 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   bookButton: {
-    backgroundColor: '#4ADE80',
+    backgroundColor: '#0FB9B1',
     paddingVertical: 18,
-    borderRadius: 16,
+    borderRadius: 14,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
+    shadowColor: '#0FB9B1',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
   },
   buttonDisabled: {
     opacity: 0.7,
   },
   bookButtonText: {
     color: '#FFFFFF',
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '600',
   },
   successContainer: {
@@ -490,50 +533,77 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 24,
+    backgroundColor: '#FFFFFF',
   },
   successIcon: {
     marginBottom: 24,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#D1FAE5',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   successTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: '#0B1C2D',
     marginBottom: 8,
   },
   successSubtitle: {
     fontSize: 16,
-    color: '#8BBAFF',
+    color: '#64748B',
     textAlign: 'center',
   },
   bookingDetails: {
-    backgroundColor: 'rgba(79, 157, 255, 0.1)',
+    backgroundColor: '#F0FDFC',
     borderRadius: 16,
     padding: 20,
     marginTop: 32,
     width: '100%',
     gap: 16,
+    borderWidth: 1,
+    borderColor: '#CCFBF1',
   },
   detailRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 14,
+  },
+  detailIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: '#E0F7F6',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   detailText: {
     fontSize: 16,
-    color: '#FFFFFF',
+    color: '#0B1C2D',
+    fontWeight: '500',
   },
   callbackNote: {
     fontSize: 14,
-    color: '#8BBAFF',
+    color: '#64748B',
     textAlign: 'center',
     marginTop: 24,
+    lineHeight: 22,
   },
   homeButton: {
-    backgroundColor: '#4F9DFF',
+    backgroundColor: '#0FB9B1',
     paddingVertical: 16,
     paddingHorizontal: 32,
-    borderRadius: 16,
+    borderRadius: 14,
     marginTop: 32,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    shadowColor: '#0FB9B1',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
   },
   homeButtonText: {
     color: '#FFFFFF',
