@@ -18,42 +18,15 @@ export default function WelcomeScreen() {
   }, [isAuthenticated, userId]);
 
   const features = [
-    { 
-      icon: 'school', 
-      text: 'Expert Career Counseling', 
-      iconColor: '#0D9488',
-      bgColor: '#CCFBF1',
-      borderColor: '#5EEAD4'
-    },
-    { 
-      icon: 'globe', 
-      text: 'Study Abroad Guidance', 
-      iconColor: '#2563EB',
-      bgColor: '#DBEAFE',
-      borderColor: '#93C5FD'
-    },
-    { 
-      icon: 'logo-youtube', 
-      text: 'Video Learning Library', 
-      iconColor: '#DC2626',
-      bgColor: '#FEE2E2',
-      borderColor: '#FCA5A5'
-    },
-    { 
-      icon: 'calendar', 
-      text: 'Book Consultations', 
-      iconColor: '#7C3AED',
-      bgColor: '#EDE9FE',
-      borderColor: '#C4B5FD'
-    },
+    { icon: 'school', text: 'Expert Career Counseling', color: '#0FB9B1', bgColor: '#E0F7F6' },
+    { icon: 'airplane', text: 'Aviation Career Guidance', color: '#6366F1', bgColor: '#EEF2FF' },
+    { icon: 'globe', text: 'Study Abroad Support', color: '#F59E0B', bgColor: '#FEF3C7' },
+    { icon: 'document-text', text: 'Visa & Documentation', color: '#EC4899', bgColor: '#FCE7F3' },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView 
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {/* Logo Section */}
         <View style={styles.logoSection}>
           <Image 
@@ -61,29 +34,19 @@ export default function WelcomeScreen() {
             style={styles.logoImage}
             resizeMode="contain"
           />
-          <Text style={styles.tagline}>Your Career Partner</Text>
+          <Text style={styles.tagline}>Career & Aviation Consultancy</Text>
         </View>
 
         {/* Features */}
         <View style={styles.features}>
           {features.map((feature, index) => (
-            <TouchableOpacity 
-              key={index} 
-              style={[
-                styles.featureItem, 
-                { 
-                  backgroundColor: feature.bgColor,
-                  borderColor: feature.borderColor,
-                }
-              ]}
-              activeOpacity={0.7}
-            >
+            <View key={index} style={[styles.featureItem, { backgroundColor: feature.bgColor }]}>
               <View style={[styles.featureIcon, { backgroundColor: '#FFFFFF' }]}>
-                <Ionicons name={feature.icon as any} size={24} color={feature.iconColor} />
+                <Ionicons name={feature.icon as any} size={24} color={feature.color} />
               </View>
-              <Text style={[styles.featureText, { color: '#1F2937' }]}>{feature.text}</Text>
-              <Ionicons name="chevron-forward" size={20} color={feature.iconColor} />
-            </TouchableOpacity>
+              <Text style={styles.featureText}>{feature.text}</Text>
+              <Ionicons name="chevron-forward" size={20} color={feature.color} />
+            </View>
           ))}
         </View>
 
@@ -100,24 +63,21 @@ export default function WelcomeScreen() {
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
-            <Text style={styles.statNumber}>50+</Text>
-            <Text style={styles.statLabel}>Countries</Text>
+            <Text style={styles.statNumber}>7</Text>
+            <Text style={styles.statLabel}>Offices</Text>
           </View>
         </View>
 
         {/* CTA Button */}
         <View style={styles.buttonSection}>
-          <TouchableOpacity
-            style={styles.primaryButton}
-            onPress={() => router.push('/auth/login')}
-          >
+          <TouchableOpacity style={styles.primaryButton} onPress={() => router.push('/auth/login')}>
             <Text style={styles.primaryButtonText}>Get Started</Text>
             <Ionicons name="arrow-forward" size={20} color="#FFF" />
           </TouchableOpacity>
         </View>
 
         {/* Footer */}
-        <Text style={styles.footer}>Trusted by students across India</Text>
+        <Text style={styles.footer}>Trusted by students across India & abroad</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -144,8 +104,8 @@ const styles = StyleSheet.create({
     height: 120,
   },
   tagline: {
-    fontSize: 18,
-    color: '#4B5563',
+    fontSize: 16,
+    color: '#64748B',
     marginTop: 8,
     fontWeight: '500',
   },
@@ -159,7 +119,6 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 16,
     borderRadius: 16,
-    borderWidth: 1.5,
   },
   featureIcon: {
     width: 48,
@@ -169,24 +128,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.05,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 2,
   },
   featureText: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 15,
     marginLeft: 14,
     fontWeight: '600',
+    color: '#0B1C2D',
   },
   statsContainer: {
     flexDirection: 'row',
-    backgroundColor: '#F0FDFA',
+    backgroundColor: '#F0FDFC',
     borderRadius: 16,
     padding: 20,
     justifyContent: 'space-around',
-    borderWidth: 1.5,
-    borderColor: '#99F6E4',
+    borderWidth: 1,
+    borderColor: '#CCFBF1',
     marginTop: 8,
   },
   statItem: {
@@ -195,34 +155,34 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#0D9488',
+    color: '#0FB9B1',
   },
   statLabel: {
     fontSize: 13,
-    color: '#6B7280',
+    color: '#64748B',
     marginTop: 4,
     fontWeight: '500',
   },
   statDivider: {
-    width: 1.5,
-    backgroundColor: '#99F6E4',
+    width: 1,
+    backgroundColor: '#CCFBF1',
   },
   buttonSection: {
     marginTop: 24,
   },
   primaryButton: {
-    backgroundColor: '#0D9488',
+    backgroundColor: '#0FB9B1',
     paddingVertical: 18,
     borderRadius: 16,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
-    shadowColor: '#0D9488',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.35,
-    shadowRadius: 10,
-    elevation: 8,
+    shadowColor: '#0FB9B1',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
   },
   primaryButtonText: {
     color: '#FFFFFF',
@@ -231,7 +191,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     textAlign: 'center',
-    color: '#9CA3AF',
+    color: '#94A3B8',
     fontSize: 13,
     marginTop: 20,
   },
