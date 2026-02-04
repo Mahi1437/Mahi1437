@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -18,15 +18,42 @@ export default function WelcomeScreen() {
   }, [isAuthenticated, userId]);
 
   const features = [
-    { icon: 'school', text: 'Expert Career Counseling', color: '#0D9488' },
-    { icon: 'globe', text: 'Study Abroad Guidance', color: '#2563EB' },
-    { icon: 'play-circle', text: 'Video Learning Library', color: '#DC2626' },
-    { icon: 'calendar', text: 'Book Consultations', color: '#7C3AED' },
+    { 
+      icon: 'school', 
+      text: 'Expert Career Counseling', 
+      iconColor: '#0D9488',
+      bgColor: '#CCFBF1',
+      borderColor: '#5EEAD4'
+    },
+    { 
+      icon: 'globe', 
+      text: 'Study Abroad Guidance', 
+      iconColor: '#2563EB',
+      bgColor: '#DBEAFE',
+      borderColor: '#93C5FD'
+    },
+    { 
+      icon: 'logo-youtube', 
+      text: 'Video Learning Library', 
+      iconColor: '#DC2626',
+      bgColor: '#FEE2E2',
+      borderColor: '#FCA5A5'
+    },
+    { 
+      icon: 'calendar', 
+      text: 'Book Consultations', 
+      iconColor: '#7C3AED',
+      bgColor: '#EDE9FE',
+      borderColor: '#C4B5FD'
+    },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
+      <ScrollView 
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Logo Section */}
         <View style={styles.logoSection}>
           <Image 
@@ -40,12 +67,23 @@ export default function WelcomeScreen() {
         {/* Features */}
         <View style={styles.features}>
           {features.map((feature, index) => (
-            <View key={index} style={styles.featureItem}>
-              <View style={[styles.featureIcon, { backgroundColor: `${feature.color}15` }]}>
-                <Ionicons name={feature.icon as any} size={22} color={feature.color} />
+            <TouchableOpacity 
+              key={index} 
+              style={[
+                styles.featureItem, 
+                { 
+                  backgroundColor: feature.bgColor,
+                  borderColor: feature.borderColor,
+                }
+              ]}
+              activeOpacity={0.7}
+            >
+              <View style={[styles.featureIcon, { backgroundColor: '#FFFFFF' }]}>
+                <Ionicons name={feature.icon as any} size={24} color={feature.iconColor} />
               </View>
-              <Text style={styles.featureText}>{feature.text}</Text>
-            </View>
+              <Text style={[styles.featureText, { color: '#1F2937' }]}>{feature.text}</Text>
+              <Ionicons name="chevron-forward" size={20} color={feature.iconColor} />
+            </TouchableOpacity>
           ))}
         </View>
 
@@ -80,7 +118,7 @@ export default function WelcomeScreen() {
 
         {/* Footer */}
         <Text style={styles.footer}>Trusted by students across India</Text>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -90,52 +128,56 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
-  content: {
-    flex: 1,
+  scrollContent: {
+    flexGrow: 1,
     paddingHorizontal: 24,
-    justifyContent: 'space-between',
-    paddingVertical: 20,
+    paddingTop: 20,
+    paddingBottom: 40,
   },
   logoSection: {
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 20,
+    marginBottom: 20,
   },
   logoImage: {
-    width: width - 100,
-    height: 140,
+    width: width - 120,
+    height: 120,
   },
   tagline: {
-    fontSize: 16,
-    color: '#6B7280',
+    fontSize: 18,
+    color: '#4B5563',
     marginTop: 8,
     fontWeight: '500',
   },
   features: {
-    marginVertical: 20,
+    marginVertical: 16,
+    gap: 12,
   },
   featureItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
+    paddingVertical: 16,
     paddingHorizontal: 16,
-    backgroundColor: '#F8FAFC',
-    borderRadius: 14,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderRadius: 16,
+    borderWidth: 1.5,
   },
   featureIcon: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
+    width: 48,
+    height: 48,
+    borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   featureText: {
-    fontSize: 15,
-    color: '#374151',
+    flex: 1,
+    fontSize: 16,
     marginLeft: 14,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   statsContainer: {
     flexDirection: 'row',
@@ -143,52 +185,54 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
     justifyContent: 'space-around',
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: '#99F6E4',
+    marginTop: 8,
   },
   statItem: {
     alignItems: 'center',
   },
   statNumber: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#0D9488',
   },
   statLabel: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#6B7280',
     marginTop: 4,
+    fontWeight: '500',
   },
   statDivider: {
-    width: 1,
+    width: 1.5,
     backgroundColor: '#99F6E4',
   },
   buttonSection: {
-    marginTop: 20,
+    marginTop: 24,
   },
   primaryButton: {
     backgroundColor: '#0D9488',
     paddingVertical: 18,
-    borderRadius: 14,
+    borderRadius: 16,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
+    gap: 10,
     shadowColor: '#0D9488',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    elevation: 8,
   },
   primaryButtonText: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   footer: {
     textAlign: 'center',
     color: '#9CA3AF',
     fontSize: 13,
-    marginTop: 16,
+    marginTop: 20,
   },
 });
