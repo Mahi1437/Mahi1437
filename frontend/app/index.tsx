@@ -34,7 +34,7 @@ export default function WelcomeScreen() {
             style={styles.logoImage}
             resizeMode="contain"
           />
-          <Text style={styles.tagline}>Career & Aviation Consultancy</Text>
+          <Text style={styles.tagline}>Edu9 Career Guidance</Text>
         </View>
 
         {/* Features */}
