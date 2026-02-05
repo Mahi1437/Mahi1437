@@ -51,7 +51,7 @@ export default function HomeScreen() {
             <View style={styles.bannerIconContainer}>
               <Ionicons name="airplane" size={40} color="#0FB9B1" />
             </View>
-            <Text style={styles.bannerTitle}>Career & Aviation{'\n'}Consultancy</Text>
+            <Text style={styles.bannerTitle}>Edu9 Career{'\n'}Guidance</Text>
             <Text style={styles.bannerSubtitle}>
               Premium guidance for your future in education, aviation, and global careers
             </Text>
