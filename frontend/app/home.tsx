@@ -113,7 +113,7 @@ export default function HomeScreen() {
             </View>
             <TouchableOpacity 
               style={styles.ctaButton}
-              onPress={() => router.push('/booking')}
+              onPress={() => Linking.openURL('https://bookings.edu9.in/#/2026')}
             >
               <Text style={styles.ctaButtonText}>Book Now</Text>
               <Ionicons name="arrow-forward" size={18} color="#FFF" />
