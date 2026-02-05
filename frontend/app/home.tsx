@@ -53,7 +53,7 @@ export default function HomeScreen() {
             </View>
             <Text style={styles.bannerTitle}>Edu9 Career{'\n'}Guidance</Text>
             <Text style={styles.bannerSubtitle}>
-              Premium guidance for your future in education, aviation, and global careers
+              Premium guidance for your future in education and global careers
             </Text>
             <View style={styles.bannerBadge}>
               <Ionicons name="shield-checkmark" size={16} color="#0FB9B1" />
