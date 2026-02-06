@@ -71,6 +71,9 @@ const universitiesByRegion: Record<string, string[]> = {
   ],
   dubai: [
     'BITS Pilani Dubai Campus',
+    'MANIPAL UNIVERSITY DUBAI',
+    'SYMBIOSIS UNIVERSITY DUBAI',
+    'AMITY UNIVERSITY DUBAI',
   ],
   malaysia: [
     'University of Malaya',
