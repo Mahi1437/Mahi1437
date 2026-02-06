@@ -15,10 +15,7 @@ index e08a593..e69de29 100644
 --@@ -71,9 +71,14 @@ const universitiesByRegion: Record<string, string[]> = {
 --   ],
 --   dubai: [
---     'BITS Pilani Dubai Campus',
----    'MANIPAL UNIVERSITY DUBAI',
----    'SYMBIOSIS UNIVERSITY DUBAI',
----    'AMITY UNIVERSITY DUBAI',
+--     'BITS Pilani Dubai Campus',   
 --+    'Watt University Dubai',
 --+    'Middlesex University Dubai',
 --+    'Rochester Institute of Technology Dubai',
