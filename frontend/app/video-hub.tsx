@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Image, Linking, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Linking, ActivityIndicator, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { WebView } from 'react-native-webview';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
-// Sample videos from Edu9 channel - these would normally come from YouTube API
+// Videos from Edu9 channel
 const videosData = [
   {
     id: 'video1',
     title: 'How to Choose Right Career After 12th | Complete Guide',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     duration: '15:24',
     views: '125K',
@@ -19,7 +19,6 @@ const videosData = [
   {
     id: 'video2',
     title: 'COMEDK 2025 Complete Counseling Process Explained',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     duration: '22:10',
     views: '89K',
@@ -27,7 +26,6 @@ const videosData = [
   {
     id: 'video3',
     title: 'Top Engineering Colleges in Bangalore - Rankings & Fees',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     duration: '18:35',
     views: '156K',
@@ -35,7 +33,6 @@ const videosData = [
   {
     id: 'video4',
     title: 'JEE Main vs KCET - Which Exam to Focus On?',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     duration: '12:48',
     views: '203K',
@@ -43,7 +40,6 @@ const videosData = [
   {
     id: 'video5',
     title: 'Study in Dubai - Complete Guide for Indian Students',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     duration: '20:15',
     views: '67K',
@@ -51,10 +47,51 @@ const videosData = [
   {
     id: 'video6',
     title: 'Aviation Career Roadmap - Pilot Training Guide',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     duration: '25:30',
     views: '112K',
+  },
+  {
+    id: 'video7',
+    title: 'KCET 2025 Preparation Strategy - Score 150+ Marks',
+    videoId: 'dQw4w9WgXcQ',
+    duration: '28:45',
+    views: '178K',
+  },
+  {
+    id: 'video8',
+    title: 'Medical vs Engineering - Which Career is Better?',
+    videoId: 'dQw4w9WgXcQ',
+    duration: '19:20',
+    views: '234K',
+  },
+  {
+    id: 'video9',
+    title: 'Top 10 Private Engineering Colleges in Karnataka',
+    videoId: 'dQw4w9WgXcQ',
+    duration: '16:55',
+    views: '145K',
+  },
+  {
+    id: 'video10',
+    title: 'How to Get Direct Admission in Top Colleges',
+    videoId: 'dQw4w9WgXcQ',
+    duration: '14:30',
+    views: '98K',
+  },
+  {
+    id: 'video11',
+    title: 'Cabin Crew Career Guide - Salary, Training & Jobs',
+    videoId: 'dQw4w9WgXcQ',
+    duration: '21:15',
+    views: '167K',
+  },
+  {
+    id: 'video12',
+    title: 'Study in Malaysia - Affordable Quality Education',
+    videoId: 'dQw4w9WgXcQ',
+    duration: '17:40',
+    views: '76K',
   },
 ];
 
@@ -62,44 +99,62 @@ const shortsData = [
   {
     id: 'short1',
     title: 'Best Engineering Branch in 2025',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     views: '450K',
   },
   {
     id: 'short2',
     title: 'KCET Rank vs College Prediction',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     views: '320K',
   },
   {
     id: 'short3',
     title: 'Top 5 Mistakes in Career Selection',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     views: '280K',
   },
   {
     id: 'short4',
     title: 'Free Career Counseling Tips',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     views: '195K',
   },
   {
     id: 'short5',
     title: 'Management Quota Explained',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     views: '156K',
   },
   {
     id: 'short6',
     title: 'Study Abroad on Budget',
-    thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
     videoId: 'dQw4w9WgXcQ',
     views: '234K',
+  },
+  {
+    id: 'short7',
+    title: 'COMEDK vs KCET - Quick Comparison',
+    videoId: 'dQw4w9WgXcQ',
+    views: '312K',
+  },
+  {
+    id: 'short8',
+    title: 'Pilot Training Cost in India',
+    videoId: 'dQw4w9WgXcQ',
+    views: '178K',
+  },
+  {
+    id: 'short9',
+    title: 'Top 3 Career Options After 12th Science',
+    videoId: 'dQw4w9WgXcQ',
+    views: '267K',
+  },
+  {
+    id: 'short10',
+    title: 'How to Choose Right College',
+    videoId: 'dQw4w9WgXcQ',
+    views: '189K',
   },
 ];
 
@@ -119,6 +174,10 @@ export default function VideoHubScreen() {
   const [videos, setVideos] = useState(videosData);
   const [shorts, setShorts] = useState(shortsData);
   const [loading, setLoading] = useState(true);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showSubscribeMessage, setShowSubscribeMessage] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [videoLoading, setVideoLoading] = useState(false);
 
   useEffect(() => {
     // Simulate loading and shuffle content
@@ -130,30 +189,41 @@ export default function VideoHubScreen() {
     }, 800);
   }, []);
 
-  const openVideo = (videoId: string) => {
-    // Open YouTube channel videos page
-    Linking.openURL('https://www.youtube.com/@edu9lvgr/videos');
-  };
-
-  const openShort = (videoId: string) => {
-    // Open YouTube channel shorts page
-    Linking.openURL('https://www.youtube.com/@edu9lvgr/shorts');
+  const handleSubscribe = () => {
+    if (!isSubscribed) {
+      setIsSubscribed(true);
+      setShowSubscribeMessage(true);
+      setTimeout(() => {
+        setShowSubscribeMessage(false);
+      }, 3000);
+    }
   };
 
   const openChannel = () => {
+    // Try to open YouTube app first, fallback to browser
     Linking.openURL('https://www.youtube.com/@edu9lvgr');
+  };
+
+  const playVideo = (videoId: string) => {
+    setVideoLoading(true);
+    setSelectedVideo(videoId);
+  };
+
+  const closeVideo = () => {
+    setSelectedVideo(null);
+    setVideoLoading(false);
   };
 
   const renderVideoCard = (video: typeof videosData[0], index: number) => (
     <TouchableOpacity
       key={video.id + index}
       style={styles.videoCard}
-      onPress={() => openVideo(video.videoId)}
+      onPress={() => playVideo(video.videoId)}
       activeOpacity={0.8}
     >
       <View style={styles.thumbnailContainer}>
         <View style={styles.thumbnailPlaceholder}>
-          <Ionicons name="play-circle" size={50} color="#FF0000" />
+          <Ionicons name="logo-youtube" size={40} color="#FF0000" />
         </View>
         <View style={styles.playOverlay}>
           <View style={styles.playButton}>
@@ -180,12 +250,12 @@ export default function VideoHubScreen() {
     <TouchableOpacity
       key={short.id + index}
       style={styles.shortCard}
-      onPress={() => openShort(short.videoId)}
+      onPress={() => playVideo(short.videoId)}
       activeOpacity={0.8}
     >
       <View style={styles.shortThumbnail}>
         <View style={styles.shortPlaceholder}>
-          <Ionicons name="play-circle" size={40} color="#FF0000" />
+          <Ionicons name="logo-youtube" size={32} color="#FF0000" />
         </View>
         <View style={styles.shortPlayOverlay}>
           <View style={styles.shortPlayButton}>
@@ -216,6 +286,14 @@ export default function VideoHubScreen() {
         <View style={{ width: 44 }} />
       </View>
 
+      {/* Subscribe Success Message */}
+      {showSubscribeMessage && (
+        <View style={styles.subscribeMessage}>
+          <Ionicons name="checkmark-circle" size={20} color="#10B981" />
+          <Text style={styles.subscribeMessageText}>Subscribed successfully</Text>
+        </View>
+      )}
+
       {/* Channel Banner */}
       <View style={styles.channelBanner}>
         <View style={styles.channelAvatar}>
@@ -225,9 +303,21 @@ export default function VideoHubScreen() {
           <Text style={styles.channelName}>Edu9 Career Guidance</Text>
           <Text style={styles.channelHandle}>@edu9lvgr</Text>
         </View>
-        <TouchableOpacity style={styles.subscribeButton} onPress={openChannel}>
-          <Ionicons name="logo-youtube" size={16} color="#FFF" />
-          <Text style={styles.subscribeText}>Subscribe</Text>
+        <TouchableOpacity 
+          style={[styles.subscribeButton, isSubscribed && styles.subscribedButton]} 
+          onPress={handleSubscribe}
+        >
+          {isSubscribed ? (
+            <>
+              <Ionicons name="checkmark" size={16} color="#64748B" />
+              <Text style={styles.subscribedText}>Subscribed</Text>
+            </>
+          ) : (
+            <>
+              <Ionicons name="logo-youtube" size={16} color="#FFF" />
+              <Text style={styles.subscribeText}>Subscribe</Text>
+            </>
+          )}
         </TouchableOpacity>
       </View>
 
@@ -243,7 +333,7 @@ export default function VideoHubScreen() {
             color={activeTab === 'videos' ? '#FF0000' : '#64748B'} 
           />
           <Text style={[styles.tabText, activeTab === 'videos' && styles.tabTextActive]}>
-            Videos
+            Videos ({videos.length})
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -256,33 +346,64 @@ export default function VideoHubScreen() {
             color={activeTab === 'shorts' ? '#FF0000' : '#64748B'} 
           />
           <Text style={[styles.tabText, activeTab === 'shorts' && styles.tabTextActive]}>
-            Shorts
+            Shorts ({shorts.length})
           </Text>
         </TouchableOpacity>
       </View>
 
-      {/* Content */}
-      {loading ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#FF0000" />
-          <Text style={styles.loadingText}>Loading videos...</Text>
+      {/* Video Player Modal */}
+      {selectedVideo && (
+        <View style={styles.videoPlayerContainer}>
+          <View style={styles.videoPlayerHeader}>
+            <Text style={styles.videoPlayerTitle}>Now Playing</Text>
+            <TouchableOpacity onPress={closeVideo} style={styles.closeButton}>
+              <Ionicons name="close" size={24} color="#0B1C2D" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.webviewContainer}>
+            {videoLoading && (
+              <View style={styles.videoLoadingOverlay}>
+                <ActivityIndicator size="large" color="#FF0000" />
+              </View>
+            )}
+            <WebView
+              source={{ uri: `https://www.youtube.com/embed/${selectedVideo}?autoplay=1&rel=0` }}
+              style={styles.webview}
+              allowsFullscreenVideo={true}
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+              onLoadEnd={() => setVideoLoading(false)}
+            />
+          </View>
         </View>
-      ) : (
-        <ScrollView 
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.contentContainer}
-        >
-          {activeTab === 'videos' ? (
-            <View style={styles.videosList}>
-              {videos.map((video, index) => renderVideoCard(video, index))}
+      )}
+
+      {/* Content */}
+      {!selectedVideo && (
+        <>
+          {loading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color="#FF0000" />
+              <Text style={styles.loadingText}>Loading videos...</Text>
             </View>
           ) : (
-            <View style={styles.shortsGrid}>
-              {shorts.map((short, index) => renderShortCard(short, index))}
-            </View>
+            <ScrollView 
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.contentContainer}
+            >
+              {activeTab === 'videos' ? (
+                <View style={styles.videosList}>
+                  {videos.map((video, index) => renderVideoCard(video, index))}
+                </View>
+              ) : (
+                <View style={styles.shortsGrid}>
+                  {shorts.map((short, index) => renderShortCard(short, index))}
+                </View>
+              )}
+              <View style={{ height: 100 }} />
+            </ScrollView>
           )}
-          <View style={{ height: 100 }} />
-        </ScrollView>
+        </>
       )}
 
       {/* Fixed Bottom Button */}
@@ -326,6 +447,22 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#0B1C2D',
   },
+  subscribeMessage: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#D1FAE5',
+    marginHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 12,
+    gap: 8,
+    marginBottom: 12,
+  },
+  subscribeMessageText: {
+    color: '#065F46',
+    fontSize: 14,
+    fontWeight: '600',
+  },
   channelBanner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -367,8 +504,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     gap: 6,
   },
+  subscribedButton: {
+    backgroundColor: '#E2E8F0',
+  },
   subscribeText: {
     color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  subscribedText: {
+    color: '#64748B',
     fontSize: 13,
     fontWeight: '600',
   },
@@ -402,6 +547,50 @@ const styles = StyleSheet.create({
   tabTextActive: {
     color: '#FF0000',
   },
+  videoPlayerContainer: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  videoPlayerHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+  },
+  videoPlayerTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#0B1C2D',
+  },
+  closeButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#F1F5F9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  webviewContainer: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
+  webview: {
+    flex: 1,
+  },
+  videoLoadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+    zIndex: 1,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -427,7 +616,7 @@ const styles = StyleSheet.create({
   },
   thumbnailContainer: {
     width: '100%',
-    height: 200,
+    height: 180,
     backgroundColor: '#1F2937',
     position: 'relative',
   },
@@ -511,7 +700,7 @@ const styles = StyleSheet.create({
   },
   shortThumbnail: {
     width: '100%',
-    height: 220,
+    height: 200,
     backgroundColor: '#1F2937',
     position: 'relative',
   },
