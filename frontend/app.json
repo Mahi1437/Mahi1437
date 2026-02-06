@@ -15,14 +15,14 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#0A1628"
+        "backgroundColor": "#FFFFFF"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.edu9.careerguide"
     },
     "androidStatusBar": {
-      "backgroundColor": "#0A1628",
-      "barStyle": "light-content"
+      "backgroundColor": "#FFFFFF",
+      "barStyle": "dark-content"
     },
     "web": {
       "bundler": "metro",
@@ -37,7 +37,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#000000"
+          "backgroundColor": "#FFFFFF"
         }
       ],
       "expo-font",
