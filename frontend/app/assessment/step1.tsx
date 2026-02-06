@@ -42,7 +42,7 @@ export default function Step1Screen() {
               <Ionicons name="person" size={50} color="#4F9DFF" />
             </View>
 
-            <Text style={styles.question}>What's your name?</Text>
+            <Text style={styles.question}>What’s your name?</Text>
             <Text style={styles.hint}>Enter your full name as per documents</Text>
 
             <View style={styles.inputContainer}>

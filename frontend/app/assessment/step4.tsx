@@ -84,7 +84,7 @@ export default function Step4Screen() {
           <View style={styles.content}>
             {/* Career Interests */}
             <Text style={styles.sectionTitle}>Your Career Interests</Text>
-            <Text style={styles.hint}>Select up to 3 areas you're interested in</Text>
+            <Text style={styles.hint}>Select up to 3 areas you’re interested in</Text>
             
             <View style={styles.interestsGrid}>
               {careerInterests.map((interest) => (
@@ -113,7 +113,7 @@ export default function Step4Screen() {
 
             {/* Strong Subjects */}
             <Text style={styles.sectionTitle}>Your Strong Subjects</Text>
-            <Text style={styles.hint}>Select 1-2 subjects you're best at</Text>
+            <Text style={styles.hint}>Select 1-2 subjects you’re best at</Text>
             
             <View style={styles.subjectsGrid}>
               {data.subjects.map((subject) => (

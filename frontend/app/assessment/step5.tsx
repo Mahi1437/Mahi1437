@@ -91,7 +91,7 @@ export default function Step5Screen() {
 
               <Text style={styles.title}>Parent Details</Text>
               <Text style={styles.subtitle}>
-                We'll send a summary of career recommendations to your parent
+                We’ll send a summary of career recommendations to your parent
               </Text>
 
               {/* Parent Name Input */}
@@ -101,7 +101,7 @@ export default function Step5Screen() {
                   <Ionicons name="person" size={22} color="#4F9DFF" style={styles.inputIcon} />
                   <TextInput
                     style={styles.input}
-                    placeholder="Father/Mother's Name"
+                    placeholder="Father/Mother’s Name"
                     placeholderTextColor="#6B8CAE"
                     value={data.parentName}
                     onChangeText={(text) => {
@@ -115,7 +115,7 @@ export default function Step5Screen() {
 
               {/* Parent Phone Input */}
               <View style={styles.inputSection}>
-                <Text style={styles.inputLabel}>Parent's Mobile</Text>
+                <Text style={styles.inputLabel}>Parent’s Mobile</Text>
                 <View style={styles.inputContainer}>
                   <Ionicons name="call" size={22} color="#4F9DFF" style={styles.inputIcon} />
                   <Text style={styles.countryCode}>+91</Text>

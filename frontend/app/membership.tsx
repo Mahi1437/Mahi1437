@@ -121,7 +121,7 @@ export default function MembershipScreen() {
 
           {/* Benefits */}
           <View style={styles.benefitsSection}>
-            <Text style={styles.benefitsTitle}>What's Included</Text>
+            <Text style={styles.benefitsTitle}>What’s Included</Text>
             <View style={styles.benefitsGrid}>
               {benefits.map((benefit, index) => (
                 <View key={index} style={styles.benefitItem}>

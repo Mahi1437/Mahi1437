@@ -148,7 +148,7 @@ export default function OfficesScreen() {
             <View style={styles.ctaIconContainer}>
               <Ionicons name="globe" size={32} color="#0FB9B1" />
             </View>
-            <Text style={styles.ctaTitle}>Can't find your city?</Text>
+            <Text style={styles.ctaTitle}>Can’t find your city?</Text>
             <Text style={styles.ctaSubtitle}>
               We offer online consultations for students worldwide
             </Text>
