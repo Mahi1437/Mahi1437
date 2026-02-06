@@ -227,13 +227,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   officesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
     paddingHorizontal: 20,
-    gap: 12,
+    gap: 16,
   },
   officeCard: {
-    width: cardWidth,
+    width: '100%',
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
     overflow: 'hidden',
@@ -245,7 +243,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: 100,
+    height: 120,
   },
   imagePlaceholder: {
     flex: 1,
