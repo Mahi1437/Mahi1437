@@ -12,7 +12,7 @@ const menuItems = [
   { id: 'aviation', title: 'Aviation Careers', subtitle: 'Fly Your Dreams', icon: 'airplane', color: '#6366F1', bgColor: '#EEF2FF', route: '/aviation' },
   { id: 'services', title: 'Edu9 Services', subtitle: 'Complete Support', icon: 'briefcase', color: '#F59E0B', bgColor: '#FEF3C7', route: '/services' },
   { id: 'fee', title: 'Consultancy Fee', subtitle: '₹10,000 Package', icon: 'card', color: '#EC4899', bgColor: '#FCE7F3', route: '/consultancy-fee' },
-  { id: 'booking', title: 'Book Consultation', subtitle: 'Schedule a Meeting', icon: 'calendar', color: '#10B981', bgColor: '#D1FAE5', route: '/booking' },
+  { id: 'booking', title: 'Book Consultation', subtitle: 'Schedule a Meeting', icon: 'calendar', color: '#10B981', bgColor: '#D1FAE5', route: '/video-hub' },
   { id: 'offices', title: 'Our Global Offices', subtitle: 'India & International', icon: 'globe', color: '#3B82F6', bgColor: '#DBEAFE', route: '/offices' },
 ];
 
