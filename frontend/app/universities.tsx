@@ -1,40 +1,99 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
-const countries = [
-  { id: 'india', name: 'India', flag: '🇮🇳', universities: 45 },
-  { id: 'usa', name: 'USA', flag: '🇺🇸', universities: 120 },
-  { id: 'uk', name: 'UK', flag: '🇬🇧', universities: 85 },
-  { id: 'canada', name: 'Canada', flag: '🇨🇦', universities: 65 },
-  { id: 'australia', name: 'Australia', flag: '🇦🇺', universities: 42 },
-  { id: 'europe', name: 'Europe', flag: '🇪🇺', universities: 95 },
-  { id: 'dubai', name: 'Dubai', flag: '🇦🇪', universities: 28 },
-  { id: 'malaysia', name: 'Malaysia', flag: '🇲🇾', universities: 35 },
+const regions = [
+  { id: 'andhra', name: 'Andhra / Telangana', hasVisa: false },
+  { id: 'chennai', name: 'Chennai', hasVisa: false },
+  { id: 'bangalore', name: 'Bangalore', hasVisa: false },
+  { id: 'delhi', name: 'Delhi', hasVisa: false },
+  { id: 'dubai', name: 'Dubai', hasVisa: true },
+  { id: 'malaysia', name: 'Malaysia', hasVisa: true },
 ];
 
-const universitiesByCountry: Record<string, any[]> = {
-  india: [{ name: 'IIT Delhi', courses: ['B.Tech', 'M.Tech', 'PhD'], ranking: '#1 in India' }, { name: 'IIM Ahmedabad', courses: ['MBA', 'PGDM'], ranking: '#1 MBA' }, { name: 'AIIMS Delhi', courses: ['MBBS', 'MD'], ranking: '#1 Medical' }],
-  usa: [{ name: 'MIT', courses: ['Engineering', 'CS', 'MBA'], ranking: '#1 World' }, { name: 'Stanford University', courses: ['Business', 'Engineering'], ranking: '#2 World' }, { name: 'Harvard University', courses: ['Law', 'Business', 'Medicine'], ranking: '#3 World' }],
-  uk: [{ name: 'Oxford University', courses: ['Arts', 'Science', 'Law'], ranking: '#1 UK' }, { name: 'Cambridge University', courses: ['Engineering', 'Medicine'], ranking: '#2 UK' }, { name: 'Imperial College', courses: ['Engineering', 'Science'], ranking: '#3 UK' }],
-  canada: [{ name: 'University of Toronto', courses: ['Arts', 'Science', 'Business'], ranking: '#1 Canada' }, { name: 'McGill University', courses: ['Medicine', 'Law'], ranking: '#2 Canada' }],
-  australia: [{ name: 'University of Melbourne', courses: ['Arts', 'Business', 'Law'], ranking: '#1 Australia' }, { name: 'University of Sydney', courses: ['Medicine', 'Engineering'], ranking: '#2 Australia' }],
-  europe: [{ name: 'ETH Zurich', courses: ['Engineering', 'Science'], ranking: '#1 Europe' }, { name: 'TU Munich', courses: ['Engineering', 'CS'], ranking: '#1 Germany' }],
-  dubai: [{ name: 'NYU Abu Dhabi', courses: ['Liberal Arts', 'Engineering'], ranking: 'Top UAE' }, { name: 'American University Dubai', courses: ['Business', 'Engineering'], ranking: 'Top Private' }],
-  malaysia: [{ name: 'University of Malaya', courses: ['Engineering', 'Medicine'], ranking: '#1 Malaysia' }, { name: 'Monash Malaysia', courses: ['Business', 'Engineering'], ranking: 'Australia Branch' }],
+const universitiesByRegion: Record<string, string[]> = {
+  andhra: [
+    'CBIT',
+    'Sreenidhi Institute',
+    'Guru Nanak Institutions',
+    'Gokaraju Rangaraju Institute',
+    'G Narayanamma Institute',
+    'Malla Reddy Engineering College',
+    'VNR VJIET',
+    'CMR Engineering College',
+    'MNR Engineering College',
+    'Mahindra University',
+  ],
+  chennai: [
+    'Sai University',
+    'Saveetha Engineering College',
+    'SRM Institute of Science & Technology',
+    'Dhanalakshmi College of Engineering',
+    'Amrita Vishwa Vidyapeetham',
+    'Sathyabama Institute',
+    'Chennai Institute of Technology',
+    'Vel Tech University',
+    'Rajalakshmi Engineering College',
+    'Jeppiaar Engineering College',
+  ],
+  bangalore: [
+    'RVCE',
+    'MSRIT',
+    'BMSCE',
+    'BMSIT',
+    'PES University',
+    'RV University',
+    'Jain University',
+    'MS Ramaiah University',
+    'Alliance University',
+    'Dayananda Sagar College',
+    'Dayananda Sagar University',
+    'NPS Sapthagiri',
+    'CMR Institute of Technology',
+    'New Horizon College of Engineering',
+    'Amity University Bangalore',
+  ],
+  delhi: [
+    'Bennett University',
+    'GD Goenka University',
+    'Shiv Nadar University',
+    'Geeta University',
+    'SRM University Delhi NCR',
+    'Sharda University',
+    'Manav Rachna University',
+    'Noida International University',
+    'SGT University',
+    'Amity University Noida',
+  ],
+  dubai: [
+    'BITS Pilani Dubai Campus',
+  ],
+  malaysia: [
+    'University of Malaya',
+    'Monash University Malaysia',
+    'Taylor\'s University',
+    'UCSI University',
+    'Sunway University',
+  ],
 };
 
 export default function UniversitiesScreen() {
   const router = useRouter();
-  const [selectedCountry, setSelectedCountry] = useState('usa');
-  const currentUniversities = universitiesByCountry[selectedCountry] || [];
+  const [selectedRegion, setSelectedRegion] = useState('bangalore');
+  const currentRegion = regions.find(r => r.id === selectedRegion);
+  const currentUniversities = universitiesByRegion[selectedRegion] || [];
+
+  const handleBookConsultation = () => {
+    Linking.openURL('https://bookings.edu9.in/#/2026');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#0B1C2D" />
@@ -44,106 +103,346 @@ export default function UniversitiesScreen() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Intro */}
         <View style={styles.intro}>
-          <Text style={styles.introTitle}>Global Education Partners</Text>
-          <Text style={styles.introSubtitle}>Explore top universities across 8 countries</Text>
+          <Text style={styles.introTitle}>Education Partners</Text>
+          <Text style={styles.introSubtitle}>Explore top universities across India & abroad</Text>
         </View>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.countryTabs}>
-          {countries.map((country) => (
+        {/* Region Tabs */}
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.tabsContainer}
+        >
+          {regions.map((region) => (
             <TouchableOpacity
-              key={country.id}
-              style={[styles.countryTab, selectedCountry === country.id && styles.countryTabActive]}
-              onPress={() => setSelectedCountry(country.id)}
+              key={region.id}
+              style={[
+                styles.regionTab,
+                selectedRegion === region.id && styles.regionTabActive,
+              ]}
+              onPress={() => setSelectedRegion(region.id)}
             >
-              <Text style={styles.countryFlag}>{country.flag}</Text>
-              <Text style={[styles.countryName, selectedCountry === country.id && styles.countryNameActive]}>{country.name}</Text>
+              <Text style={[
+                styles.regionTabText,
+                selectedRegion === region.id && styles.regionTabTextActive,
+              ]}>
+                {region.name}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
 
-        <View style={styles.countBadge}>
-          <Ionicons name="school" size={18} color="#0FB9B1" />
-          <Text style={styles.countText}>{countries.find(c => c.id === selectedCountry)?.universities} Partner Universities</Text>
+        {/* Service Badges */}
+        <View style={styles.badgesContainer}>
+          <View style={styles.badge}>
+            <Ionicons name="checkmark-circle" size={16} color="#10B981" />
+            <Text style={styles.badgeText}>Admission Support</Text>
+          </View>
+          {currentRegion?.hasVisa && (
+            <View style={[styles.badge, styles.visaBadge]}>
+              <Ionicons name="document-text" size={16} color="#6366F1" />
+              <Text style={[styles.badgeText, styles.visaBadgeText]}>Visa Guidance</Text>
+            </View>
+          )}
         </View>
 
+        {/* Universities List */}
         <View style={styles.universitiesList}>
-          {currentUniversities.map((uni, index) => (
+          {currentUniversities.map((university, index) => (
             <View key={index} style={styles.universityCard}>
-              <View style={styles.universityHeader}>
-                <View style={styles.universityIcon}>
-                  <Ionicons name="business" size={24} color="#0FB9B1" />
-                </View>
-                <View style={styles.universityInfo}>
-                  <Text style={styles.universityName}>{uni.name}</Text>
-                  <Text style={styles.universityRanking}>{uni.ranking}</Text>
+              <View style={styles.rankingBadge}>
+                <Text style={styles.rankingText}>#{index + 1}</Text>
+              </View>
+              <View style={styles.universityIcon}>
+                <Ionicons name="school" size={24} color="#0FB9B1" />
+              </View>
+              <View style={styles.universityInfo}>
+                <Text style={styles.universityName}>{university}</Text>
+                <View style={styles.coursesTags}>
+                  <View style={styles.courseTag}>
+                    <Text style={styles.courseTagText}>Engineering</Text>
+                  </View>
+                  <View style={styles.courseTag}>
+                    <Text style={styles.courseTagText}>B.Tech</Text>
+                  </View>
                 </View>
               </View>
-              <View style={styles.coursesContainer}>
-                <Text style={styles.coursesLabel}>Popular Courses</Text>
-                <View style={styles.courseTags}>
-                  {uni.courses.map((course: string, i: number) => (
-                    <View key={i} style={styles.courseTag}>
-                      <Text style={styles.courseTagText}>{course}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-              <View style={styles.universityFooter}>
-                <View style={styles.footerItem}>
-                  <Ionicons name="checkmark-circle" size={16} color="#10B981" />
-                  <Text style={styles.footerText}>Admission Support</Text>
-                </View>
-                <View style={styles.footerItem}>
-                  <Ionicons name="document-text" size={16} color="#10B981" />
-                  <Text style={styles.footerText}>Visa Guidance</Text>
-                </View>
-              </View>
+              <TouchableOpacity style={styles.arrowButton}>
+                <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+              </TouchableOpacity>
             </View>
           ))}
         </View>
 
-        <TouchableOpacity style={styles.ctaButton} onPress={() => router.push('/booking')}>
-          <Text style={styles.ctaText}>Book University Counseling</Text>
-          <Ionicons name="arrow-forward" size={20} color="#FFF" />
-        </TouchableOpacity>
-        <View style={{ height: 40 }} />
+        {/* University Count */}
+        <View style={styles.countSection}>
+          <Text style={styles.countText}>
+            {currentUniversities.length} Universities in {currentRegion?.name}
+          </Text>
+        </View>
+
+        {/* CTA Section */}
+        <View style={styles.ctaSection}>
+          <View style={styles.ctaCard}>
+            <View style={styles.ctaIcon}>
+              <Ionicons name="calendar" size={28} color="#0FB9B1" />
+            </View>
+            <Text style={styles.ctaTitle}>Need Help Choosing?</Text>
+            <Text style={styles.ctaSubtitle}>
+              Get personalized guidance from our expert counselors
+            </Text>
+            <TouchableOpacity style={styles.ctaButton} onPress={handleBookConsultation}>
+              <Text style={styles.ctaButtonText}>Book Free Consultation</Text>
+              <Ionicons name="arrow-forward" size={18} color="#FFF" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Edu9 Career Guidance</Text>
+          <Text style={styles.footerSubtext}>Your Partner in Success</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFFFFF' },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 16 },
-  backButton: { width: 44, height: 44, borderRadius: 12, backgroundColor: '#F1F5F9', justifyContent: 'center', alignItems: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: '600', color: '#0B1C2D' },
-  intro: { paddingHorizontal: 20, marginBottom: 20 },
-  introTitle: { fontSize: 26, fontWeight: 'bold', color: '#0B1C2D', marginBottom: 8 },
-  introSubtitle: { fontSize: 14, color: '#64748B', lineHeight: 22 },
-  countryTabs: { paddingHorizontal: 20, marginBottom: 16 },
-  countryTab: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 25, backgroundColor: '#F8FAFC', marginRight: 10, borderWidth: 1, borderColor: '#E2E8F0', gap: 8 },
-  countryTabActive: { backgroundColor: '#E0F7F6', borderColor: '#0FB9B1' },
-  countryFlag: { fontSize: 20 },
-  countryName: { fontSize: 14, color: '#64748B', fontWeight: '500' },
-  countryNameActive: { color: '#0FB9B1' },
-  countBadge: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, marginBottom: 16, gap: 8 },
-  countText: { fontSize: 14, color: '#0FB9B1', fontWeight: '600' },
-  universitiesList: { paddingHorizontal: 20, gap: 12 },
-  universityCard: { backgroundColor: '#F8FAFC', borderRadius: 16, padding: 20, borderWidth: 1, borderColor: '#E2E8F0' },
-  universityHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 16 },
-  universityIcon: { width: 50, height: 50, borderRadius: 14, backgroundColor: '#E0F7F6', justifyContent: 'center', alignItems: 'center' },
-  universityInfo: { marginLeft: 14, flex: 1 },
-  universityName: { fontSize: 17, fontWeight: '600', color: '#0B1C2D' },
-  universityRanking: { fontSize: 12, color: '#0FB9B1', marginTop: 2 },
-  coursesContainer: { marginBottom: 16 },
-  coursesLabel: { fontSize: 12, color: '#64748B', marginBottom: 8 },
-  courseTags: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  courseTag: { backgroundColor: '#FFFFFF', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 12, borderWidth: 1, borderColor: '#E2E8F0' },
-  courseTagText: { fontSize: 12, color: '#0B1C2D' },
-  universityFooter: { flexDirection: 'row', gap: 16 },
-  footerItem: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  footerText: { fontSize: 12, color: '#64748B' },
-  ctaButton: { marginHorizontal: 20, marginTop: 24, backgroundColor: '#0FB9B1', borderRadius: 14, paddingVertical: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 },
-  ctaText: { fontSize: 16, fontWeight: '600', color: '#FFFFFF' },
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+  },
+  backButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: '#F1F5F9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#0B1C2D',
+  },
+  intro: {
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
+  introTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#0B1C2D',
+    marginBottom: 6,
+  },
+  introSubtitle: {
+    fontSize: 14,
+    color: '#64748B',
+  },
+  tabsContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 16,
+    gap: 10,
+  },
+  regionTab: {
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    backgroundColor: '#F8FAFC',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  regionTabActive: {
+    backgroundColor: '#0FB9B1',
+    borderColor: '#0FB9B1',
+  },
+  regionTabText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#64748B',
+  },
+  regionTabTextActive: {
+    color: '#FFFFFF',
+  },
+  badgesContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    gap: 10,
+    marginBottom: 20,
+  },
+  badge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#D1FAE5',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    gap: 6,
+  },
+  badgeText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#065F46',
+  },
+  visaBadge: {
+    backgroundColor: '#EEF2FF',
+  },
+  visaBadgeText: {
+    color: '#4338CA',
+  },
+  universitiesList: {
+    paddingHorizontal: 20,
+    gap: 12,
+  },
+  universityCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F8FAFC',
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  rankingBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: '#0FB9B1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  rankingText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  universityIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: '#E0F7F6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 14,
+  },
+  universityInfo: {
+    flex: 1,
+  },
+  universityName: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#0B1C2D',
+    marginBottom: 6,
+  },
+  coursesTags: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  courseTag: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  courseTagText: {
+    fontSize: 10,
+    color: '#64748B',
+    fontWeight: '500',
+  },
+  arrowButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  countSection: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  countText: {
+    fontSize: 13,
+    color: '#64748B',
+    fontWeight: '500',
+  },
+  ctaSection: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  ctaCard: {
+    backgroundColor: '#F0FDFC',
+    borderRadius: 20,
+    padding: 24,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#CCFBF1',
+  },
+  ctaIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#E0F7F6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  ctaTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#0B1C2D',
+    marginBottom: 8,
+  },
+  ctaSubtitle: {
+    fontSize: 14,
+    color: '#64748B',
+    textAlign: 'center',
+    marginBottom: 20,
+    lineHeight: 22,
+  },
+  ctaButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0FB9B1',
+    paddingVertical: 14,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    gap: 8,
+    width: '100%',
+  },
+  ctaButtonText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  footer: {
+    alignItems: 'center',
+    paddingVertical: 32,
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#0FB9B1',
+    fontWeight: '600',
+  },
+  footerSubtext: {
+    fontSize: 12,
+    color: '#94A3B8',
+    marginTop: 4,
+  },
 });
