@@ -180,7 +180,7 @@ export default function OfficesScreen() {
   );
 }
 
-const cardWidth = (width - 52) / 2;
+const cardWidth = width - 40;
 
 const styles = StyleSheet.create({
   container: {
