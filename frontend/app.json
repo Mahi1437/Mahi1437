@@ -20,6 +20,10 @@
       "edgeToEdgeEnabled": true,
       "package": "com.edu9.careerguide"
     },
+    "androidStatusBar": {
+      "backgroundColor": "#0A1628",
+      "barStyle": "light-content"
+    },
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -33,7 +37,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#000"
+          "backgroundColor": "#000000"
         }
       ]
     ],
