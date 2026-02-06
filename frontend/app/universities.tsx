@@ -71,9 +71,14 @@ const universitiesByRegion: Record<string, string[]> = {
   ],
   dubai: [
     'BITS Pilani Dubai Campus',
-    'MANIPAL UNIVERSITY DUBAI',
-    'SYMBIOSIS UNIVERSITY DUBAI',
-    'AMITY UNIVERSITY DUBAI',
+    'Watt University Dubai',
+    'Middlesex University Dubai',
+    'Rochester Institute of Technology Dubai',
+    'S P Jain School of Global Management Dubai',
+    'University of Birmingham Dubai',
+    'Amity University Dubai',
+    'Symbiosis International University Dubai',
+    'Manipal University Dubai',
   ],
   malaysia: [
     'University of Malaya',
