@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -61,7 +61,7 @@ export default function ServicesScreen() {
   const router = useRouter();
 
   const handleBookSlot = () => {
-    Linking.openURL('https://bookings.edu9.in/#/2026');
+    router.push('/slotbooking');
   };
 
   return (

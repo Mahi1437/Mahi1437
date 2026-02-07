@@ -13,7 +13,7 @@ export default function SupportScreen() {
   };
 
   const handleEmail = () => {
-    Linking.openURL('mailto:eco@edu9.in');
+    Linking.openURL('mailto:ceo@edu9.in');
   };
 
   const handleWhatsApp = () => {
@@ -57,7 +57,7 @@ export default function SupportScreen() {
               <View style={styles.contactInfo}>
                 <Text style={styles.contactTitle}>Call Us</Text>
                 <Text style={styles.contactValue}>+91 9133311450</Text>
-                <Text style={styles.contactHint}>Mon-Sat, 10 AM - 6 PM</Text>
+                <Text style={styles.contactHint}>Mon-Sun, 9 AM - 8 PM</Text>
               </View>
               <Ionicons name="chevron-forward" size={24} color="#4F9DFF" />
             </TouchableOpacity>
@@ -80,7 +80,7 @@ export default function SupportScreen() {
               </View>
               <View style={styles.contactInfo}>
                 <Text style={styles.contactTitle}>Email</Text>
-                <Text style={styles.contactValue}>eco@edu9.in</Text>
+                <Text style={styles.contactValue}>ceo@edu9.in</Text>
                 <Text style={styles.contactHint}>We reply within 24 hours</Text>
               </View>
               <Ionicons name="chevron-forward" size={24} color="#4F9DFF" />
@@ -110,24 +110,43 @@ export default function SupportScreen() {
           </View>
 
           {/* Office Address */}
-          <View style={styles.addressSection}>
-            <Text style={styles.sectionTitle}>Visit Our Office</Text>
-            <View style={styles.addressCard}>
-              <Ionicons name="location" size={24} color="#4F9DFF" />
-              <View style={styles.addressInfo}>
-                <Text style={styles.addressTitle}>Edu9 Career Guidance Center</Text>
-                <Text style={styles.addressText}>
-                  Available for in-person consultations{"\n"}
-                  Contact us to schedule a visit
-                </Text>
-              </View>
-            </View>
-          </View>
+<View style={styles.addressSection}>
+  <Text style={styles.sectionTitle}>Visit Our Office</Text>
+
+  <View style={styles.addressCard}>
+    <Ionicons name="location" size={24} color="#4F9DFF" />
+
+    <View style={styles.addressInfo}>
+      <Text style={styles.addressTitle}>
+        Edu9 Career Guidance Center
+      </Text>
+
+      <Text style={styles.addressText}>
+        12th Floor, Vasavi MPM Grand, 1312{"\n"}
+        Beside Ameerpet Metro Station, Ameerpet{"\n"}
+        Hyderabad, Telangana 500073
+      </Text>
+
+      <Text style={styles.addressSubText} color="#FFF">
+        Available for in-person consultations. Contact us to schedule a visit.
+      </Text>
+
+      <Text
+        style={styles.mapLink}
+        onPress={() =>
+          Linking.openURL("https://maps.app.goo.gl/JDkx4JyWM2gMP2Zj7")
+        }
+      >
+        View on Google Maps
+      </Text>
+    </View>
+  </View>
+</View>
 
           {/* Footer */}
           <View style={styles.footer}>
             <Text style={styles.footerText}>Edu9 - Your Career Partner</Text>
-            <Text style={styles.copyrightText}>© 2025 Edu9. All rights reserved.</Text>
+            <Text style={styles.copyrightText}>© 2026 Edu9. All rights reserved.</Text>
           </View>
         </ScrollView>
       </SafeAreaView>

@@ -112,7 +112,7 @@ export default function AviationScreen() {
           ))}
         </View>
 
-        <TouchableOpacity style={styles.ctaButton} onPress={() => router.push('/booking')}>
+        <TouchableOpacity style={styles.ctaButton} onPress={() => router.push('/slotbooking')}>
           <Text style={styles.ctaText}>Get Aviation Career Guidance</Text>
           <Ionicons name="arrow-forward" size={20} color="#FFF" />
         </TouchableOpacity>

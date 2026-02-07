@@ -189,15 +189,17 @@ export default function VideoHubScreen() {
     }, 800);
   }, []);
 
-  const handleSubscribe = () => {
-    if (!isSubscribed) {
-      setIsSubscribed(true);
-      setShowSubscribeMessage(true);
-      setTimeout(() => {
-        setShowSubscribeMessage(false);
-      }, 3000);
-    }
-  };
+const YOUTUBE_CHANNEL_ID = 'UCLx0Y5AJpHhoh-PjH7EAp1Q';
+
+const handleSubscribe = async () => {
+  const url = `https://www.youtube.com/channel/${YOUTUBE_CHANNEL_ID}?sub_confirmation=1`;
+
+  try {
+    await Linking.openURL(url);
+  } catch (e) {
+    console.log('Error opening YouTube', e);
+  }
+};
 
   const openChannel = () => {
     // Try to open YouTube app first, fallback to browser
@@ -367,13 +369,46 @@ export default function VideoHubScreen() {
               </View>
             )}
             <WebView
-              source={{ uri: `https://www.youtube.com/embed/${selectedVideo}?autoplay=1&rel=0` }}
-              style={styles.webview}
-              allowsFullscreenVideo={true}
-              javaScriptEnabled={true}
-              domStorageEnabled={true}
-              onLoadEnd={() => setVideoLoading(false)}
-            />
+  originWhitelist={['*']}
+  javaScriptEnabled
+  domStorageEnabled
+  allowsFullscreenVideo
+  mediaPlaybackRequiresUserAction={false}
+  source={{
+    html: `
+      <!DOCTYPE html>
+      <html>
+        <body style="margin:0;background:black;">
+          <div id="player"></div>
+
+          <script>
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            var player;
+            function onYouTubeIframeAPIReady() {
+              player = new YT.Player('player', {
+                width: '100%',
+                height: '100%',
+                videoId: '${selectedVideo}',
+                playerVars: {
+                  autoplay: 1,
+                  controls: 1,
+                  rel: 0,
+                  modestbranding: 1
+                }
+              });
+            }
+          </script>
+        </body>
+      </html>
+    `,
+  }}
+  style={styles.webview}
+  onLoadEnd={() => setVideoLoading(false)}
+/>
           </View>
         </View>
       )}
