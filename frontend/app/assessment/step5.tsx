@@ -96,7 +96,7 @@ export default function Step5Screen() {
 
               {/* Parent Name Input */}
               <View style={styles.inputSection}>
-                <Text style={styles.inputLabel}>Parent's Name</Text>
+                <Text style={styles.inputLabel}>Parent’s Name</Text>
                 <View style={styles.inputContainer}>
                   <Ionicons name="person" size={22} color="#4F9DFF" style={styles.inputIcon} />
                   <TextInput

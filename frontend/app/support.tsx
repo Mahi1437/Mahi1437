@@ -40,7 +40,7 @@ export default function SupportScreen() {
             <View style={styles.supportIcon}>
               <Ionicons name="headset" size={60} color="#4F9DFF" />
             </View>
-            <Text style={styles.heroTitle}>We're Here to Help</Text>
+            <Text style={styles.heroTitle}>We’re Here to Help</Text>
             <Text style={styles.heroSubtitle}>
               Have questions? Our team is ready to assist you
             </Text>

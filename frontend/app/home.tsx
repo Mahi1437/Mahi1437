@@ -11,7 +11,7 @@ const menuItems = [
   { id: 'universities', title: 'Top Universities', subtitle: 'Global Education Partners', icon: 'school', color: '#0FB9B1', bgColor: '#E0F7F6', route: '/universities' },
   { id: 'aviation', title: 'Aviation Careers', subtitle: 'Fly Your Dreams', icon: 'airplane', color: '#6366F1', bgColor: '#EEF2FF', route: '/aviation' },
   { id: 'services', title: 'Edu9 Services', subtitle: 'Complete Support', icon: 'briefcase', color: '#F59E0B', bgColor: '#FEF3C7', route: '/services' },
-  { id: 'fee', title: 'Consultancy Fee', subtitle: '₹10,000 Package', icon: 'card', color: '#EC4899', bgColor: '#FCE7F3', route: '/consultancy-fee' },
+  { id: 'slotbooking', title: 'Appointment Booking Link', subtitle: '₹10,000 Package', icon: 'card', color: '#EC4899', bgColor: '#FCE7F3', route: '/slotbooking' },
   { id: 'youtube', title: 'YouTube Consultation', subtitle: 'Free Consultation', icon: 'logo-youtube', color: '#FF0000', bgColor: '#FEE2E2', route: '/video-hub' },
   { id: 'offices', title: 'Our Global Offices', subtitle: 'India & International', icon: 'globe', color: '#3B82F6', bgColor: '#DBEAFE', route: '/offices' },
 ];
@@ -112,18 +112,18 @@ export default function HomeScreen() {
               <Text style={styles.ctaSubtitle}>Book a consultation with our expert counselors</Text>
             </View>
             <TouchableOpacity 
-              style={styles.ctaButton}
-              onPress={() => Linking.openURL('https://bookings.edu9.in/#/2026')}
-            >
-              <Text style={styles.ctaButtonText}>Book Now</Text>
-              <Ionicons name="arrow-forward" size={18} color="#FFF" />
-            </TouchableOpacity>
+  style={styles.ctaButton}
+  onPress={() => router.push("/slotbooking")}
+>
+  <Text style={styles.ctaButtonText}>Book Now</Text>
+  <Ionicons name="arrow-forward" size={18} color="#0FB9B1" />
+</TouchableOpacity>
           </View>
         </View>
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Edu9 Career & Aviation Consultancy</Text>
+          <Text style={styles.footerText}>Edu9 Career Guidance</Text>
           <Text style={styles.footerSubtext}>India • Dubai • Malaysia</Text>
         </View>
       </ScrollView>

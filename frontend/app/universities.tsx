@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -96,7 +96,7 @@ export default function UniversitiesScreen() {
   const currentUniversities = universitiesByRegion[selectedRegion] || [];
 
   const handleBookConsultation = () => {
-    Linking.openURL('https://bookings.edu9.in/#/2026');
+     router.push('/slotbooking');
   };
 
   return (
@@ -202,9 +202,10 @@ export default function UniversitiesScreen() {
               Get personalized guidance from our expert counselors
             </Text>
             <TouchableOpacity style={styles.ctaButton} onPress={handleBookConsultation}>
-              <Text style={styles.ctaButtonText}>Book Free Consultation</Text>
+              <Text style={styles.ctaButtonText}>Book Consultation</Text>
               <Ionicons name="arrow-forward" size={18} color="#FFF" />
             </TouchableOpacity>
+            
           </View>
         </View>
 

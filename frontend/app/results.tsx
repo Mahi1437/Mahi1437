@@ -151,7 +151,7 @@ export default function ResultsScreen() {
               onPress={() => router.push('/booking')}
             >
               <Ionicons name="calendar" size={24} color="#FFF" />
-              <Text style={styles.primaryActionText}>Book Free Consultation</Text>
+              <Text style={styles.primaryActionText}>Book Consultation</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
