@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "0ce69f24-1606-4d58-812c-13e59316d628"
+      }
+    },
+    "android": {
+      "package": "com.edu9.careerguide"
+    },
+    "ios": {
+      "bundleIdentifier": "com.edu9.careerguide"
+    },
+    "owner": "josh123innivations"
+  }
+}

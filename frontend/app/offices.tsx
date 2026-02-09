@@ -11,7 +11,7 @@ const offices = [
     id: 'hyderabad',
     city: 'Hyderabad',
     location: 'AP / Telangana, India',
-    image: 'https://images.unsplash.com/photo-1572638914375-16e67bf12a7b?w=400&h=300&fit=crop',
+    image: 'https://lh3.googleusercontent.com/p/AF1QipOA_cYtbun1lPYCYlxhu6PUJfegogjC9K-Px2et=s680-w680-h510-rw?w=400&h=300&fit=crop',
     phone: '+91 9133311450',
     email: 'ceo@edu9.in',
   },
@@ -62,7 +62,7 @@ export default function OfficesScreen() {
 
   const handleGetDetails = (office: typeof offices[0]) => {
     // Open booking page for consultation
-    Linking.openURL('https://bookings.edu9.in/#/2026');
+    Linking.openURL('https://maps.app.goo.gl/JDkx4JyWM2gMP2Zj7');
   };
 
   const handleCall = (phone: string) => {
@@ -154,7 +154,7 @@ export default function OfficesScreen() {
             </Text>
             <TouchableOpacity 
               style={styles.ctaButton}
-              onPress={() => Linking.openURL('https://bookings.edu9.in/#/2026')}
+              onPress={() => router.push("/slotbooking")}
             >
               <Ionicons name="videocam" size={18} color="#FFF" />
               <Text style={styles.ctaButtonText}>Book Online Consultation</Text>
